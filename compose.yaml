@@ -1,0 +1,17 @@
+services:
+  next:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/src/app/next
+    command:
+      npm run dev
+    depends_on:
+      - db
+  db:
+    image: mysql/mysql-server:8.0
+    ports:
+      - 3306:3306

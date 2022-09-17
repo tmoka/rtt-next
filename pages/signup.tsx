@@ -1,5 +1,8 @@
+import axios from "axios";
+import router from "next/router";
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
+import { Fetcher } from "swr";
 
 const SignUp = (): JSX.Element => {
 
@@ -12,7 +15,11 @@ const SignUp = (): JSX.Element => {
   const { control, handleSubmit } = useForm<UserSignUpType>();
 
   const onSubmit = (data: UserSignUpType) => {
+    axios.post("/api/signup", data).then((res) => {
+      console.log(res);
+    }).catch((err) => console.error(err));
     alert(JSON.stringify(data));
+    router.push("/")
   };
 
   return <div>
@@ -29,7 +36,7 @@ const SignUp = (): JSX.Element => {
       <section>
         <label>メールアドレス</label>
         <Controller
-          render={({ field }) => <input {...field} />}
+          render={({ field }) => <input {...field} type="email" />}
           name="email"
           control={control}
           defaultValue=""
@@ -38,7 +45,7 @@ const SignUp = (): JSX.Element => {
       <section>
         <label>パスワード</label>
         <Controller
-          render={({ field }) => <input {...field} />}
+          render={({ field }) => <input {...field} type="password" />}
           name="password"
           control={control}
           defaultValue=""
@@ -51,4 +58,4 @@ const SignUp = (): JSX.Element => {
   </div>
 };
 
-export default SignUp
+export default SignUp;

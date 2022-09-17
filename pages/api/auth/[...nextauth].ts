@@ -34,8 +34,7 @@ export default NextAuth({
 
         if (!user) return null;
 
-        const isValidPassword = await verify(user?.password, password);
-        console.log(isValidPassword);
+        const isValidPassword = await verify(user?.hashedPassword, password);
 
         // 返されたオブジェクトはJWTの `user` プロパティに保存される
         if (isValidPassword) {

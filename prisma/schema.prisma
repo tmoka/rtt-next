@@ -11,15 +11,10 @@ datasource db {
 }
 
 model User {
-  id                  Int       @id @default(autoincrement())
-  name                String
-  kana                String
-  email               String
-  encryptedPassword   String
-  resetPasswordToken  String?
-  resetPasswordSentAt DateTime?
-  rememberCreatedAt   DateTime?
-  signInCount         Int       @default(0)
-  createdAt           DateTime  @default(now())
-  updatedAt           DateTime  @updatedAt
+  id             Int      @id @default(autoincrement())
+  name           String
+  email          String   @unique
+  hashedPassword String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }

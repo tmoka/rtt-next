@@ -1,9 +1,7 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { PrismaClient } from "@prisma/client"
-import Email from "next-auth/providers/email"
-import { hash, verify } from "argon2"
+import { verify } from "argon2"
 
 const prisma = new PrismaClient()
 

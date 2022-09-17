@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { hash } from 'argon2'
+import SignUp from './signup'
+import router, { Router } from 'next/router'
 
 export default function Home() {
   return (
@@ -27,6 +29,7 @@ export function SessionComponent() {
     <>
       Not signed in <br />
       <button onClick={() => signIn()}>Sign in</button>
+      <button onClick={() => router.push("signup")}>アカウント登録</button>
     </>
   )
 }

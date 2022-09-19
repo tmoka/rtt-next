@@ -10,11 +10,48 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "erd.md"
+}
+
 model User {
-  id             Int      @id @default(autoincrement())
+  id             Int             @id @default(autoincrement())
   name           String
-  email          String   @unique
+  kana           String
+  email          String          @unique
   hashedPassword String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  status         Int             @default(1)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  UsersOnGenbas  UsersOnGenbas[]
+}
+
+model Genba {
+  id              Int             @id @default(autoincrement())
+  name            String          @unique
+  kana            String?
+  motouke         String?
+  status          Int             @default(1)
+  folderUpdatedAt DateTime?
+  UsersOnGenbas   UsersOnGenbas[]
+}
+
+model Company {
+  id        Int      @id @default(autoincrement())
+  name      String
+  kana      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UsersOnGenbas {
+  User      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  Genba     Genba    @relation(fields: [genbaId], references: [id])
+  genbaId   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([userId, genbaId])
 }

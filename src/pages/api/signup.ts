@@ -3,16 +3,17 @@ import { hash } from "argon2";
 
 const prisma = new PrismaClient();
 
-const signupHandler = async (req: any, res: any) => {
+const signupController = async (req: any, res: any) => {
   if (req.method === 'POST') {
     const data = req.body;
-    const { name, email, password } = data;
+    const { name, kana, email, password } = data;
 
     const hashedPassword = await hash(password);
 
     const user = await prisma.user.create({
       data: {
         name,
+        kana,
         email,
         hashedPassword,
       }
@@ -21,4 +22,4 @@ const signupHandler = async (req: any, res: any) => {
   }
 }
 
-export default signupHandler;
+export default signupController;

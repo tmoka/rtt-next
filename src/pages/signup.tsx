@@ -8,6 +8,7 @@ const SignUp = (): JSX.Element => {
 
   type UserSignUpType = {
     name: string,
+    kana: string,
     email: string,
     password: string,
   }
@@ -34,6 +35,15 @@ const SignUp = (): JSX.Element => {
         />
       </section>
       <section>
+        <label>ふりがな</label>
+        <Controller
+          render={({ field }) => <input {...field} />}
+          name="kana"
+          control={control}
+          defaultValue=""
+        />
+      </section>
+      <section>
         <label>メールアドレス</label>
         <Controller
           render={({ field }) => <input {...field} type="email" />}
@@ -52,7 +62,7 @@ const SignUp = (): JSX.Element => {
         />
       </section>
       <button type="submit">
-        Send
+        ユーザ登録
       </button>
     </form>
   </div>

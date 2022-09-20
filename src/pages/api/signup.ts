@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import { hash } from "argon2";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const prisma = new PrismaClient();
 
-const signupController = async (req: any, res: any) => {
+const signupHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     const data = req.body;
     const { name, kana, email, password } = data;
@@ -18,8 +19,8 @@ const signupController = async (req: any, res: any) => {
         hashedPassword,
       }
     })
-    res.json()
+    res.json(user);
   }
 }
 
-export default signupController;
+export default signupHandler;

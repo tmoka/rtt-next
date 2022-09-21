@@ -11,9 +11,20 @@ const UserEdit: NextPage = () => {
     email: string,
   }
 
-  const { control, handleSubmit } = useForm<UserEditType>();
+
+  const { control, handleSubmit, setValue } = useForm<UserEditType>();
+
   const router = useRouter();
   const { id } = router.query;
+
+  const fetcher = (url: string) => axios.get(url).then(res => res.data)
+  const { data, error } = useSWR('/api/users/' + id, fetcher)
+  if (!id) return <>Loading</>
+  if (!data) return <div>Loading</div>;
+  if (error) return <div>エラーが発生しました</div>
+  setValue('name', data.name);
+  setValue('kana', data.kana);
+  setValue('email', data.email);
 
   const onSubmit = (data: UserEditType) => {
     axios.put("/api/users/" + id, data).then((res) => {
@@ -26,7 +37,7 @@ const UserEdit: NextPage = () => {
   return <div>
     <form onSubmit={handleSubmit(onSubmit)} >
       <section>
-        <label>名前</label>
+        <label>氏名</label>
         <Controller
           render={({ field }) => <input {...field} />}
           name="name"
@@ -35,7 +46,7 @@ const UserEdit: NextPage = () => {
         />
       </section>
       <section>
-        <label>ふりがな</label>
+        <label>フリガナ</label>
         <Controller
           render={({ field }) => <input {...field} />}
           name="kana"
@@ -44,7 +55,7 @@ const UserEdit: NextPage = () => {
         />
       </section>
       <section>
-        <label>メールアドレス</label>
+        <label>Email</label>
         <Controller
           render={({ field }) => <input {...field} type="email" />}
           name="email"

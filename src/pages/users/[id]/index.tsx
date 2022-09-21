@@ -3,8 +3,10 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import useSWR from "swr";
+import Link from 'next/link';
+import { NextPage } from "next";
 
-const User = (): JSX.Element => {
+const User: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
 
@@ -20,8 +22,24 @@ const User = (): JSX.Element => {
   if (!data) return <div>Loading</div>;
   if (error) return <div>エラーが発生しました</div>
 
+  const handleDelete = () => {
+    axios.delete("/api/users/" + id, data).then((res) => {
+      alert(JSON.stringify(res));
+    }).catch((err) => console.error(err));
+    alert(JSON.stringify(data));
+    router.push("/users")
+  }
 
-  return <><p>{data.name}</p><p>{data.kana}</p><p>{data.email}</p></>
+
+  return <>
+    <p>{data.name}</p>
+    <p>{data.kana}</p>
+    <p>{data.email}</p>
+    <Link href={`/users/${encodeURIComponent(data.id)}/edit`}>
+      <button>編集</button>
+    </Link>
+    <button onClick={handleDelete}>削除</button>
+  </>
 }
 
 export default User;

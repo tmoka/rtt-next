@@ -6,9 +6,7 @@ import usersController from "."
 const prisma = new PrismaClient;
 
 const userHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  //const router = useRouter();
-  const { query } = req;
-  let { id } = query;
+  let { id } = req.query;
 
   if (req.method === "GET") {
     const user = await prisma.user.findFirst({
@@ -16,8 +14,32 @@ const userHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         id: Number(id),
       }
     });
-
     return res.json(user);
+  }
+
+  if (req.method === "PUT") {
+    const data = req.body;
+    const { name, kana, email } = data;
+    const user = await prisma.user.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        name,
+        kana,
+        email,
+      }
+    })
+    return res.json(user)
+  }
+
+  if (req.method === "DELETE") {
+    const deleteUser = await prisma.user.delete({
+      where: {
+        id: Number(id)
+      }
+    })
+    return res.json(deleteUser)
   }
   return res.json({})
 }

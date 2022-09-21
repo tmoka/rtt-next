@@ -11,11 +11,16 @@ const SignUp = (): JSX.Element => {
     kana: string,
     email: string,
     password: string,
+    confirmPassword: string,
   }
 
   const { control, handleSubmit } = useForm<UserSignUpType>();
 
   const onSubmit = (data: UserSignUpType) => {
+    if (data.password !== data.confirmPassword) {
+      console.error("パスワードが一致しません");
+      return;
+    }
     axios.post("/api/signup", data).then((res) => {
       console.log(res);
     }).catch((err) => console.error(err));
@@ -26,7 +31,16 @@ const SignUp = (): JSX.Element => {
   return <div>
     <form onSubmit={handleSubmit(onSubmit)} >
       <section>
-        <label>名前</label>
+        <label>Email</label>
+        <Controller
+          render={({ field }) => <input {...field} type="email" />}
+          name="email"
+          control={control}
+          defaultValue=""
+        />
+      </section>
+      <section>
+        <label>氏名</label>
         <Controller
           render={({ field }) => <input {...field} />}
           name="name"
@@ -35,19 +49,10 @@ const SignUp = (): JSX.Element => {
         />
       </section>
       <section>
-        <label>ふりがな</label>
+        <label>フリガナ</label>
         <Controller
           render={({ field }) => <input {...field} />}
           name="kana"
-          control={control}
-          defaultValue=""
-        />
-      </section>
-      <section>
-        <label>メールアドレス</label>
-        <Controller
-          render={({ field }) => <input {...field} type="email" />}
-          name="email"
           control={control}
           defaultValue=""
         />
@@ -61,8 +66,17 @@ const SignUp = (): JSX.Element => {
           defaultValue=""
         />
       </section>
+      <section>
+        <label>確認用パスワード</label>
+        <Controller
+          render={({ field }) => <input {...field} type="password" />}
+          name="confirmPassword"
+          control={control}
+          defaultValue=""
+        />
+      </section>
       <button type="submit">
-        ユーザ登録
+        アカウント登録
       </button>
     </form>
   </div>

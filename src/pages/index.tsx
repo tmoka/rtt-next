@@ -3,6 +3,9 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import { hash } from 'argon2'
 import SignUp from './signup'
 import router, { Router } from 'next/router'
+import React from 'react'
+import Link from 'next/link'
+
 
 export default function Home() {
   return (
@@ -22,6 +25,7 @@ export function SessionComponent() {
       <>
         Signed in as {session?.user?.email} <br />
         <button onClick={() => signOut()}>Sign out</button>
+        <Link href="/users"><button>ユーザ一覧</button></Link>
       </>
     )
   }

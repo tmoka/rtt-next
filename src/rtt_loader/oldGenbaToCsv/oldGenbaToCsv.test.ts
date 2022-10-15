@@ -31,11 +31,11 @@ describe('従来版現場ファイルからCSVファイルに変換できるこ�
     expect.assertions(1)
     const pointRows = await kihToPointCsv('./test/rtt_loader/kih/')
     expect(pointRows).not.toHaveLength(0)
-  });
-  ['rtt_hanshin', 'sample1'].forEach((sampleName) => {
+  })
+  ;['rtt_hanshin', 'sample1'].forEach((sampleName) => {
     test(`${sampleName} フォルダ全体から link.csv, point.csv, setsu.csv, torishin.csv に変換できること`, async () => {
       expect.assertions(4)
-      const data = await oldGenbaToCsv(`../newclass/samplefiles/RTT/${sampleName}/`)
+      const data = await oldGenbaToCsv(`./src/samplefiles/RTT/${sampleName}/`)
       expect(data.linkRows).not.toHaveLength(0)
       expect(data.pointRows).not.toHaveLength(0)
       expect(data.setsuRows).not.toHaveLength(0)

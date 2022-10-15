@@ -13,7 +13,7 @@ import { RTTLoaderError, CSVKind, RowIdToNumberType } from './rttLoaderError'
 /**
  * RTTLoaderDecodeError の1つ1つのエラーを表す型
  */
-interface CSVDecodeErrorReportType {
+type CSVDecodeErrorReportType = {
   message: string
   rowId: number
   colName: string

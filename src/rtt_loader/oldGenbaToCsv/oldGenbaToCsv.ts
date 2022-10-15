@@ -55,7 +55,7 @@ export class OldGenbaToCsvError extends Error {
 /**
  * ポイントファイルに記録されている1つのポイントを表す型
  */
-interface OldPointFilePointType {
+type OldPointFilePointType = {
   readonly pointName: string
   readonly x: number
   readonly y: number
@@ -65,7 +65,7 @@ interface OldPointFilePointType {
 /**
  * COLファイルのデータを表す型
  */
-interface OldColsType {
+type OldColsType = {
   [pointName: string]: ColForm | undefined
 }
 

@@ -21,6 +21,7 @@
     "humps": "^2.0.1",
     "io-ts": "^2.2.19",
     "lodash": "^4.17.21",
+    "natural-orderby": "^2.0.3",
     "next": "12.2.5",
     "next-auth": "^4.10.3",
     "papaparse": "^5.3.2",

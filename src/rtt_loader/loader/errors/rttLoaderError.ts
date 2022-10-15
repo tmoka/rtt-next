@@ -1,4 +1,4 @@
-import { KGExceptionType } from '../../../common/types';
+import { KGExceptionType } from '../../../common/types'
 
 /**
  * csvの種類を表す型
@@ -15,17 +15,17 @@ export enum CSVKind {
  *
  * `rowIdToNumber[rowId] = rowNumber` という関係になっている
  */
-export type RowIdToNumberType = number[];
+export type RowIdToNumberType = number[]
 
 /**
  * STEP 1. -- 3. のエラーの親クラス
  */
 export class RTTLoaderError extends Error {
-  name = 'RTTLoaderError';
+  name = 'RTTLoaderError'
 
   constructor(message: string) {
-    super(message);
-    Object.setPrototypeOf(this, RTTLoaderError.prototype);
+    super(message)
+    Object.setPrototypeOf(this, RTTLoaderError.prototype)
   }
 
   public toKGExceptions(): KGExceptionType[] {
@@ -35,6 +35,6 @@ export class RTTLoaderError extends Error {
         userMessage: this.message,
         debugMessage: '',
       },
-    ];
+    ]
   }
 }

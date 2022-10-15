@@ -1,13 +1,7 @@
-import {
-  parse,
-  unparse,
-  ParseConfig,
-  ParseResult,
-  ParseError,
-} from 'papaparse';
-import * as t from 'io-ts';
-import { fold } from 'fp-ts/lib/Either';
-import humps from 'humps';
+import { parse, unparse, ParseConfig, ParseResult, ParseError } from 'papaparse'
+import * as t from 'io-ts'
+import { fold } from 'fp-ts/lib/Either'
+import humps from 'humps'
 import {
   CSVLinkRuntype,
   CSVLinkRow,
@@ -20,50 +14,50 @@ import {
   GenbaType,
   GenbaDataType,
   GenbaFormat,
-} from '../../common/types';
-import { range } from '../../common/utils';
+} from '../../common/types'
+import { range } from '../../common/utils'
 import {
   getTorishinNames,
   getZentai,
   getHeimenList,
   emptyGenbaWithUnknownError,
   splitByLine,
-} from './utils';
+} from './utils'
 import {
   CSVKind,
   RowIdToNumberType,
   RTTLoaderParseError,
   RTTLoaderDecodeError,
   RTTLoaderError,
-} from './errors';
+} from './errors'
 
 /**
  * RTTLoaderが受け取る入力の型
  */
-export type LoaderContentType = string;
+export type LoaderContentType = string
 
 /**
  * papaparse の実行結果の型
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type LoaderParseResult = ParseResult<any>;
+type LoaderParseResult = ParseResult<any>
 
 /**
  * RTTLoaderが受け取る入力の型を1現場分まとめた型
  */
 export type LoaderAllContentType = {
-  readonly [K in CSVKind]: LoaderContentType;
-};
+  readonly [K in CSVKind]: LoaderContentType
+}
 
 /**
  * 型チェック済みのjsonの型を1現場分まとめた型
  */
 export type AllCsvRowsType = {
-  linkRows: CSVLinkRow[];
-  pointRows: CSVPointRow[];
-  setsuRows: CSVSetsuRow[];
-  torishinRows: CSVTorishinRow[];
-};
+  linkRows: CSVLinkRow[]
+  pointRows: CSVPointRow[]
+  setsuRows: CSVSetsuRow[]
+  torishinRows: CSVTorishinRow[]
+}
 
 /**
  * csvデータ読み込み用クラス。
@@ -74,7 +68,7 @@ export type AllCsvRowsType = {
  */
 export class RTTLoader {
   /** papaparseに渡すconfig */
-  private config: ParseConfig;
+  private config: ParseConfig
 
   constructor(config: ParseConfig = {}) {
     this.config = {
@@ -91,7 +85,7 @@ export class RTTLoader {
       dynamicTyping: false,
       // 空行を読み飛ばす
       skipEmptyLines: true,
-    };
+    }
   }
 
   /**
@@ -104,26 +98,25 @@ export class RTTLoader {
    * @return rowId と rowNumber の対応を表す配列
    */
   private getRowIdToNumber(content: LoaderContentType): RowIdToNumberType {
-    const lines = splitByLine(content);
+    const lines = splitByLine(content)
     if (!this.config.comments) {
       // コメント行を利用しない設定になっているとき
       // 単純に0始まりを1始まりに直して1行目のヘッダの分を除くだけでok
-      return range(2, lines.length + 2);
+      return range(2, lines.length + 2)
     }
-    const commentsPrefix =
-      this.config.comments === true ? '#' : this.config.comments;
-    const commentRegexp = new RegExp(`^${commentsPrefix}`);
-    const rowIdToNumber: number[] = [];
+    const commentsPrefix = this.config.comments === true ? '#' : this.config.comments
+    const commentRegexp = new RegExp(`^${commentsPrefix}`)
+    const rowIdToNumber: number[] = []
     lines.forEach((line, i) => {
       if (
         i !== 0 && // 1行目のヘッダ行ではない
         !commentRegexp.test(line) && // コメント行ではない
         !(this.config.skipEmptyLines && line === '') // 空行ではない
       ) {
-        rowIdToNumber.push(i + 1);
+        rowIdToNumber.push(i + 1)
       }
-    });
-    return rowIdToNumber;
+    })
+    return rowIdToNumber
   }
 
   /**
@@ -134,22 +127,22 @@ export class RTTLoader {
   private asyncParse(content: LoaderContentType): Promise<LoaderParseResult> {
     return new Promise<LoaderParseResult>((resolve, reject) => {
       const onComplete = (results: LoaderParseResult): void => {
-        resolve(results);
-      };
+        resolve(results)
+      }
       const onError = (error: ParseError): void => {
-        reject(error);
-      };
+        reject(error)
+      }
       const conf: ParseConfig = {
         ...this.config,
         complete: onComplete,
         error: onError,
-      };
-      try {
-        parse(content, conf);
-      } catch (error) {
-        reject(error);
       }
-    });
+      try {
+        parse(content, conf)
+      } catch (error) {
+        reject(error)
+      }
+    })
   }
 
   /**
@@ -164,21 +157,21 @@ export class RTTLoader {
     content: LoaderContentType,
     csvRuntype: R,
   ): Promise<t.TypeOf<R>> {
-    const rowIdToNumber = this.getRowIdToNumber(content);
+    const rowIdToNumber = this.getRowIdToNumber(content)
 
     // STEP 1. csv -> json 変換
-    const parseResults = await this.asyncParse(content);
+    const parseResults = await this.asyncParse(content)
     if (parseResults.errors.length > 0) {
       throw new RTTLoaderParseError(
         csvKind,
         'csvファイルが不正です。',
         parseResults.errors,
         rowIdToNumber,
-      );
+      )
     }
 
     // STEP 2. json 型チェック
-    const decResult = csvRuntype.decode(parseResults.data);
+    const decResult = csvRuntype.decode(parseResults.data)
     const decodedData: t.TypeOf<R> = fold(
       // 失敗時に実行する処理
       (errors: t.Errors) => {
@@ -187,42 +180,42 @@ export class RTTLoader {
           'csvファイルのデータの型が不正です。',
           errors,
           rowIdToNumber,
-        );
+        )
       },
       // 成功時に実行する処理
       (data) => data,
-    )(decResult);
+    )(decResult)
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return decodedData;
+    return decodedData
   }
 
   /**
    * link.csv を読み込む
    */
   public loadLink(content: LoaderContentType): Promise<CSVLinkRow[]> {
-    return this.loadOne(CSVKind.LINK, content, CSVLinkRuntype);
+    return this.loadOne(CSVKind.LINK, content, CSVLinkRuntype)
   }
 
   /**
    * point.csv を読み込む
    */
   public loadPoint(content: LoaderContentType): Promise<CSVPointRow[]> {
-    return this.loadOne(CSVKind.POINT, content, CSVPointRuntype);
+    return this.loadOne(CSVKind.POINT, content, CSVPointRuntype)
   }
 
   /**
    * setsu.csv を読み込む
    */
   public loadSetsu(content: LoaderContentType): Promise<CSVSetsuRow[]> {
-    return this.loadOne(CSVKind.SETSU, content, CSVSetsuRuntype);
+    return this.loadOne(CSVKind.SETSU, content, CSVSetsuRuntype)
   }
 
   /**
    * torishin.csv を読み込む
    */
   public loadTorishin(content: LoaderContentType): Promise<CSVTorishinRow[]> {
-    return this.loadOne(CSVKind.TORISHIN, content, CSVTorishinRuntype);
+    return this.loadOne(CSVKind.TORISHIN, content, CSVTorishinRuntype)
   }
 
   /**
@@ -230,44 +223,39 @@ export class RTTLoader {
    * STEP 1. csv -> json 変換
    * STEP 2. json 型チェック
    */
-  private async parseAndDecode(
-    allContent: LoaderAllContentType,
-  ): Promise<AllCsvRowsType> {
+  private async parseAndDecode(allContent: LoaderAllContentType): Promise<AllCsvRowsType> {
     const [linkRows, pointRows, setsuRows, torishinRows] = await Promise.all([
       this.loadLink(allContent.link),
       this.loadPoint(allContent.point),
       this.loadSetsu(allContent.setsu),
       this.loadTorishin(allContent.torishin),
-    ]);
-    return { linkRows, pointRows, setsuRows, torishinRows };
+    ])
+    return { linkRows, pointRows, setsuRows, torishinRows }
   }
 
   /**
    * 3ステップ目の処理を行う
    * STEP 3. json -> GenbaData 変換
    */
-  public static convert(
-    allCsvRows: AllCsvRowsType,
-    format: GenbaFormat,
-  ): GenbaType {
-    const { linkRows, pointRows, setsuRows, torishinRows } = allCsvRows;
+  public static convert(allCsvRows: AllCsvRowsType, format: GenbaFormat): GenbaType {
+    const { linkRows, pointRows, setsuRows, torishinRows } = allCsvRows
 
-    const zentai = getZentai(setsuRows, torishinRows);
-    const heimenList = getHeimenList(pointRows, linkRows, zentai.setsuList);
-    const torishinNames = getTorishinNames(heimenList);
+    const zentai = getZentai(setsuRows, torishinRows)
+    const heimenList = getHeimenList(pointRows, linkRows, zentai.setsuList)
+    const torishinNames = getTorishinNames(heimenList)
 
     const genbaData: GenbaDataType = {
       format,
       heimenList,
       zentai,
       torishinNames,
-    };
+    }
     const genba = {
       rttwebGenba: null,
       genbaData,
       errors: [],
-    };
-    return genba;
+    }
+    return genba
   }
 
   /**
@@ -285,15 +273,15 @@ export class RTTLoader {
     try {
       // STEP 1. csv -> json 変換
       // STEP 2. json 型チェック
-      const allCsvRows = await this.parseAndDecode(allContent);
+      const allCsvRows = await this.parseAndDecode(allContent)
 
       // STEP 3. json -> GenbaData 変換
-      const genba = RTTLoader.convert(allCsvRows, format);
+      const genba = RTTLoader.convert(allCsvRows, format)
 
-      return genba;
+      return genba
     } catch (err) {
       // eslint-disable-next-line no-console
-      console.error(err);
+      console.error(err)
       const genba =
         err instanceof RTTLoaderError
           ? {
@@ -301,8 +289,8 @@ export class RTTLoader {
               genbaData: null,
               errors: err.toKGExceptions(),
             }
-          : emptyGenbaWithUnknownError;
-      return genba;
+          : emptyGenbaWithUnknownError
+      return genba
     }
   }
 }
@@ -313,5 +301,5 @@ export class RTTLoader {
 export const unparseRows = (
   rows: CSVLinkRow[] | CSVPointRow[] | CSVSetsuRow[] | CSVTorishinRow[],
 ): string => {
-  return unparse(humps.decamelizeKeys(rows));
-};
+  return unparse(humps.decamelizeKeys(rows))
+}

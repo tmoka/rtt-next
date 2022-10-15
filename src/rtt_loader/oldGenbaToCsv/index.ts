@@ -1,1 +1,1 @@
-export * from './oldGenbaToCsv';
+export * from './oldGenbaToCsv'

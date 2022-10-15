@@ -2,21 +2,21 @@
  * STEP 1. csv -> json 変換 関連の utils
  */
 
-import { ParseError } from 'papaparse';
-import { KGExceptionType } from '../../../common/types';
-import { RTTLoaderError, RowIdToNumberType, CSVKind } from './rttLoaderError';
+import { ParseError } from 'papaparse'
+import { KGExceptionType } from '../../../common/types'
+import { RTTLoaderError, RowIdToNumberType, CSVKind } from './rttLoaderError'
 
 /**
  * STEP 1. csv -> json 変換 でのエラー
  */
 export class RTTLoaderParseError extends RTTLoaderError {
-  name = 'RTTLoaderParseError';
+  name = 'RTTLoaderParseError'
 
-  public readonly csvKind: CSVKind;
+  public readonly csvKind: CSVKind
 
-  public readonly parseErrors: ParseError[];
+  public readonly parseErrors: ParseError[]
 
-  public readonly rowIdToNumber: RowIdToNumberType;
+  public readonly rowIdToNumber: RowIdToNumberType
 
   constructor(
     csvKind: CSVKind,
@@ -24,12 +24,12 @@ export class RTTLoaderParseError extends RTTLoaderError {
     parseErrors: ParseError[],
     rowIdToNumber: RowIdToNumberType,
   ) {
-    super(`${userMessage}\nファイル: ${csvKind}.csv`);
-    Object.setPrototypeOf(this, RTTLoaderParseError.prototype);
+    super(`${userMessage}\nファイル: ${csvKind}.csv`)
+    Object.setPrototypeOf(this, RTTLoaderParseError.prototype)
 
-    this.csvKind = csvKind;
-    this.parseErrors = parseErrors;
-    this.rowIdToNumber = rowIdToNumber;
+    this.csvKind = csvKind
+    this.parseErrors = parseErrors
+    this.rowIdToNumber = rowIdToNumber
   }
 
   public toKGExceptions(): KGExceptionType[] {
@@ -39,6 +39,6 @@ export class RTTLoaderParseError extends RTTLoaderError {
         this.rowIdToNumber[err.row]
       }`,
       debugMessage: '',
-    }));
+    }))
   }
 }

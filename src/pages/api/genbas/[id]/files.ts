@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import formidable from 'formidable'
 import fs from 'fs'
 import path from 'path'
+import { padZero } from '../../../../common/utils'
 
 export const config = {
   api: {
@@ -9,12 +10,15 @@ export const config = {
   },
 }
 
+const UPLOAD_FOLDER_NAME_LENGTH = 4
+
 const form = formidable({ multiples: true })
 
 const filesHandler = (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query
   if (req.method === 'GET') {
-    const dirPath = path.join('uploads', 'genbas', fillZeroFolderId(String(id)))
+    const dirPath = path.join('uploads', 'genbas', padZero(Number(id), UPLOAD_FOLDER_NAME_LENGTH))
+    console.log(dirPath)
     const fileNameList = fs.readdirSync(dirPath)
     let results: object[] = []
     fileNameList.map((fileName: string) => {
@@ -42,20 +46,15 @@ const filesHandler = (req: NextApiRequest, res: NextApiResponse) => {
 
 const saveFile = async (file: any, genbaId: string) => {
   const data = fs.readFileSync(file.filepath)
-  const uploadPath = path.join('uploads', 'genbas', fillZeroFolderId(genbaId))
+  const uploadPath = path.join(
+    'uploads',
+    'genbas',
+    padZero(Number(genbaId), UPLOAD_FOLDER_NAME_LENGTH),
+  )
   fs.existsSync(uploadPath) ? null : fs.mkdirSync(uploadPath)
   fs.writeFileSync(uploadPath + `/${file.originalFilename}`, data)
   await fs.unlinkSync(file.filepath)
   return
-}
-
-// 現場IDが3桁以下の場合、フォルダ名の前方を0で埋めて4桁に揃える
-const fillZeroFolderId = (genbaId: string): string => {
-  const genbaIdLength = genbaId.length
-  if (genbaIdLength > 3) {
-    return genbaId
-  }
-  return '0'.repeat(4 - genbaIdLength) + genbaId
 }
 
 export default filesHandler

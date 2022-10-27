@@ -1,0 +1,3 @@
+[submodule "modules/react-shape-editor"]
+	path = modules/react-shape-editor
+	url = https://github.com/gky360/react-shape-editor.git

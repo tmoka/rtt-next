@@ -79,6 +79,7 @@ const RTTDrawerContainer: React.FC<RTTDrawerContainerProps> = ({
   onZumenTypeChange,
 }) => {
   const { statusGetGenbaByKey } = asyncStatus
+  console.log("statusGetGenbaByKey: ", statusGetGenbaByKey)
 
   return (
     <div className='rtt-drawer-container'>
@@ -101,9 +102,9 @@ const RTTDrawerContainer: React.FC<RTTDrawerContainerProps> = ({
       </div>
       <GenbaErrors errors={genba.errors || []} />
       {statusGetGenbaByKey &&
-      statusGetGenbaByKey.type === GET_GENBA_BY_KEY_SUCCESS &&
-      !isEmpty(genba.genbaData) &&
-      isEmpty(genba.errors) ? (
+        statusGetGenbaByKey.type === GET_GENBA_BY_KEY_SUCCESS &&
+        !isEmpty(genba.genbaData) &&
+        isEmpty(genba.errors) ? (
         <RTTDrawer
           genbaKey={genbaKey}
           rttwebGenba={genba.rttwebGenba || defaultRTTWebGenba}

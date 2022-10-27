@@ -5,21 +5,21 @@
  * をもとに作成
  */
 
-import React, { useCallback, useEffect, useLayoutEffect, useRef } from 'react'
+import React, { ReactNode, useCallback, useEffect, useLayoutEffect, useRef } from 'react'
 import { applyToPoint, identity, inverse, Matrix } from 'transformation-matrix'
 import {
   EventEmitter,
   EventType,
   useAdditionalListener,
   useNewEventEmitter,
-} from '@/react-shape-editor/dist/EventEmitter'
-import { useIsMountedRef, useUpdatingRef } from '@/react-shape-editor/dist/hooks'
-import { Point, Rectangle, ShapeActions } from '@/react-shape-editor/dist/types'
+} from '../../../../../modules/react-shape-editor/dist/EventEmitter'
+import { useIsMountedRef, useUpdatingRef } from '../../../../../modules/react-shape-editor/dist/hooks'
+import { Point, Rectangle, ShapeActions } from '../../../../../modules/react-shape-editor/dist/types'
 import {
   CoordinateGetterRefProvider,
   DimensionsProvider,
   EventEmitterProvider,
-} from '@/react-shape-editor/dist/useRootContext'
+} from '../../../../../modules/react-shape-editor/dist/useRootContext'
 import { XYPointObject } from '../../../constants'
 
 // @types/react のバージョンの違いを吸収するための定義
@@ -76,7 +76,7 @@ const useChildAddDeleteHandler = (
       })
 
       if (closestShapeActions !== null) {
-        ;(closestShapeActions as ShapeActions).forceFocus()
+        ; (closestShapeActions as ShapeActions).forceFocus()
       }
     }
 
@@ -121,6 +121,7 @@ type ShapeEditorContextsProps = Readonly<{
   // TODOv4: Remove vectorHeight/vectorWidth/children defaults, and make required
   vectorHeight?: number
   vectorWidth?: number
+  children: ReactNode
 }>
 
 const ShapeEditorContexts: React.FC<ShapeEditorContextsProps> = ({
@@ -138,13 +139,13 @@ const ShapeEditorContexts: React.FC<ShapeEditorContextsProps> = ({
     bottom: paddingBottom,
     left: paddingLeft,
   } = typeof padding === 'number'
-    ? {
+      ? {
         top: padding,
         right: padding,
         bottom: padding,
         left: padding,
       }
-    : {
+      : {
         top: 0,
         right: 0,
         bottom: 0,

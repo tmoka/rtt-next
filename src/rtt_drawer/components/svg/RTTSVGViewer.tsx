@@ -27,30 +27,27 @@ import ToggleButtonGroupWithTracking from '../common/ToggleButtonGroupWithTracki
 import HeaderInfoForm from '../headerInfo/HeaderInfoForm'
 
 const EditorToolPopover = (
-  <Popover id='rect-button-popover'>
-    <Popover.Title>編集ツール</Popover.Title>
-    <Popover.Content>
-      <dl>
-        <dt>
-          <i className='mr-2 fas fa-vector-square' />
-          長方形
-        </dt>
-        <dd>長方形を追加します。</dd>
-        <dt>
-          <i className='mr-2 fas fa-slash' />
-          直線
-        </dt>
-        <dd>直線を追加します。</dd>
-        <dt>
-          <i className='mr-2 fas fa-trash-alt' />
-          全削除
-        </dt>
-        <dd>図形をすべて削除します。</dd>
-      </dl>
-      <a href={RTTWEB_HELP_SHAPES_URL} target='_blank' rel='noopener noreferrer'>
-        詳しい使い方
-      </a>
-    </Popover.Content>
+  <Popover id='rect-button-popover' title='編集ツール'>
+    <dl>
+      <dt>
+        <i className='mr-2 fas fa-vector-square' />
+        長方形
+      </dt>
+      <dd>長方形を追加します。</dd>
+      <dt>
+        <i className='mr-2 fas fa-slash' />
+        直線
+      </dt>
+      <dd>直線を追加します。</dd>
+      <dt>
+        <i className='mr-2 fas fa-trash-alt' />
+        全削除
+      </dt>
+      <dd>図形をすべて削除します。</dd>
+    </dl>
+    <a href={RTTWEB_HELP_SHAPES_URL} target='_blank' rel='noopener noreferrer'>
+      詳しい使い方
+    </a>
   </Popover>
 )
 
@@ -195,7 +192,6 @@ const RTTSVGViewer: React.FC<RTTSVGViewerProps> = ({
                   size='sm'
                   name='editor-tool'
                   className='mr-1'
-                  onChange={handleEditorToolChange}
                   type='checkbox'
                   value={editor.tool ? [editor.tool] : undefined}
                 >

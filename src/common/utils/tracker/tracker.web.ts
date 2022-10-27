@@ -7,7 +7,10 @@ import { TrackerType } from './types'
  */
 const getRailsUserId = (): string | undefined => {
   // metaタグ経由でデータを取得する
-  const userIdMetaTag = document.head.querySelector('meta[name=user-id]')
+  let userIdMetaTag
+  if (typeof window === 'object') {
+    userIdMetaTag = document.head.querySelector('meta[name=user-id]')
+  }
   const userId = (userIdMetaTag && userIdMetaTag.getAttribute('content')) || undefined
   return userId
 }

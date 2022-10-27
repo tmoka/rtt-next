@@ -111,7 +111,7 @@ const SingleColumnXOrY: React.FC<SingleColumnXOrYProps> = ({
   const xyCenterValue =
     torishinValue === null
       ? // torishinValue が指定されていない場合は描画対象のポイントの座標の平均値が中央位置に来るように描画する
-        calcXOrYAverage(xy, singleColumnPoints)
+      calcXOrYAverage(xy, singleColumnPoints)
       : torishinValue
 
   const xyCenterTrans = transform(
@@ -143,16 +143,16 @@ const SingleColumnXOrY: React.FC<SingleColumnXOrYProps> = ({
 
   const linksElems = isShowLinks
     ? stagesDst.map((stage) => (
-        <SingleColumnLinks
-          key={stage}
-          xy={xy}
-          setsuList={setsuList}
-          singleColumnPoints={singleColumnPoints}
-          stage={stage}
-          gosaScale={gosaScale}
-          strokeWidth={strokeWidthX}
-        />
-      ))
+      <SingleColumnLinks
+        key={stage}
+        xy={xy}
+        setsuList={setsuList}
+        singleColumnPoints={singleColumnPoints}
+        stage={stage}
+        gosaScale={gosaScale}
+        strokeWidth={strokeWidthX}
+      />
+    ))
     : null
 
   const pointsElems = stagesDst.map((stage) => (
@@ -267,6 +267,7 @@ const SingleColumnXOrY: React.FC<SingleColumnXOrYProps> = ({
             editor={editor}
             clearTrans={singleColumnBodyClearTrans}
             onEditorShapesReplace={onEditorShapesReplace}
+            children
           />
         </SVGLayer>
       ) : null}

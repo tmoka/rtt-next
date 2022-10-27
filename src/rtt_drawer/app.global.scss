@@ -1,33 +1,4 @@
-// svg, pdf用フォント
-@font-face {
-  font-family: 'Noto Sans Japanese';
-  font-weight: normal;
-  font-style: normal;
-  src: url('../../assets/fonts/NotoSansCJKjp-Regular.min.ttf')
-    format('truetype');
-}
 
-@font-face {
-  font-family: 'Noto Sans Japanese';
-  font-weight: bold;
-  font-style: normal;
-  src: url('../../assets/fonts/NotoSansCJKjp-Bold.min.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Noto Sans Japanese';
-  font-weight: normal;
-  font-style: italic;
-  src: url('../../assets/fonts/NotoSansCJKjp-Regular.min.ttf')
-    format('truetype');
-}
-
-@font-face {
-  font-family: 'Noto Sans Japanese';
-  font-weight: bold;
-  font-style: italic;
-  src: url('../../assets/fonts/NotoSansCJKjp-Bold.min.ttf') format('truetype');
-}
 
 .rtt-drawer svg {
   font-family: 'Noto Sans Japanese', sans-serif;

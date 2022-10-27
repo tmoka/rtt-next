@@ -1,5 +1,5 @@
 import React from 'react'
-import { ResizeHandleComponentType } from '@/react-shape-editor/dist/types'
+import { ResizeHandleComponentType } from '../../../../../../modules/react-shape-editor/dist/types'
 import { useClearTransContext } from '../../../../hooks'
 import SVGLayer from '../../common/SVGLayer'
 

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import { Matrix } from 'transformation-matrix'
-import { DrawLayer, SelectionLayer } from '@/react-shape-editor/dist'
-import { ShapeId } from '@/react-shape-editor/dist/types'
+import { DrawLayer, SelectionLayer } from '../../../../../modules/react-shape-editor/dist'
+import { ShapeId } from '../../../../../modules/react-shape-editor/dist/types'
 import { GenbaKeyType } from '../../../../common/types'
 import { replaceEditorShapes } from '../../../actions'
 import { SHAPE_CONSTRAIN_KEY, Corners, EditorShapeId, ZUMEN, INFINITY } from '../../../constants'
@@ -23,6 +23,7 @@ type RTTShapeEditorProps = Readonly<{
   editor: EditorState
   clearTrans: Matrix
   onEditorShapesReplace: typeof replaceEditorShapes
+  children: ReactNode
 }>
 
 const RTTShapeEditor: React.FC<RTTShapeEditorProps> = ({

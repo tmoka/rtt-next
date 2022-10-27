@@ -1,9 +1,9 @@
-import { wrapShape } from '@/react-shape-editor/dist'
+import { wrapShape } from '../../../modules/react-shape-editor/dist'
 import {
   ConstrainResizeFunc,
   WrappedShapeProps,
   WrappedShapeReceivedProps,
-} from '@/react-shape-editor/dist/types'
+} from '../../../modules/react-shape-editor/dist/types'
 import { EditorShapeKind, EPSILON, ExtraShapeProps } from '../constants'
 
 /** react-shape-editor の wrapShape の props に自前のデータを追加した関数 */

@@ -3,7 +3,7 @@
  */
 
 import axios from 'axios'
-import { TFontFamilyTypes } from 'pdfmake/build/pdfmake'
+//import { TFontFamilyTypes } from 'pdfmake/build/pdfmake'
 
 /**
  * バックエンドのホスト名
@@ -26,9 +26,9 @@ const [notoSansCJKjpRegularMin, notoSansCJKjpBoldMin] =
     ? ['DUMMY_PATH', 'DUMMY_PATH']
     : [
         // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
-        require('../../../assets/fonts/NotoSansCJKjp-Regular.min.ttf').default as string,
+
         // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
-        require('../../../assets/fonts/NotoSansCJKjp-Bold.min.ttf').default as string,
+
       ]
 
 const notoSansCJKjpRegularMinURL = `${KANGI3D_HOST}${notoSansCJKjpRegularMin}`
@@ -38,18 +38,18 @@ const notoSansCJKjpBoldMinURL = `${KANGI3D_HOST}${notoSansCJKjpBoldMin}`
  * pdfMake に渡すフォント設定の型
  */
 export interface FontsConfigType {
-  readonly [fontName: string]: FontConfigType
+  readonly [fontName: string]: any
 }
 
 /**
  * pdfMake に渡すフォント設定のうちの1フォント分の型
  */
-export type FontConfigType = TFontFamilyTypes
+//export type FontConfigType = TFontFamilyTypes
 
 /**
  * web用のフォント設定
  */
-export const fontsConfigOnWeb: FontsConfigType = {
+export const fontsConfigOnWeb: any = {
   [jpFontName]: {
     normal: notoSansCJKjpRegularMinURL,
     bold: notoSansCJKjpBoldMinURL,

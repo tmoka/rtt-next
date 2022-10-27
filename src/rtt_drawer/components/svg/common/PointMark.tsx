@@ -204,8 +204,8 @@ const PointMark: React.FC<PointMarkProps> = ({
     const textAnchor = i === 0 ? 'end' : 'start'
     const style = fontSize
       ? {
-          fontSize: `${fontSize}px`,
-        }
+        fontSize: `${fontSize}px`,
+      }
       : {}
 
     return (
@@ -240,11 +240,8 @@ const PointMark: React.FC<PointMarkProps> = ({
       placement='bottom'
       delay={delayConfig}
       overlay={
-        <Popover id={id}>
-          <Popover.Title>{point.name}</Popover.Title>
-          <Popover.Content>
-            <PointInfo point={point} />
-          </Popover.Content>
+        <Popover id={id} title={point.name}>
+          <PointInfo point={point} />
         </Popover>
       }
     >

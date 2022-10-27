@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { Alert } from 'react-bootstrap'
 import { format } from 'date-fns'
 import NewlineToBreak from './NewlineToBreak'
@@ -17,10 +17,14 @@ export type ErrorBoundaryState = Readonly<{
   debugMessage?: string
 }>
 
+type ErrorBoundaryProps = {
+  children?: ReactNode
+}
+
 /**
  * 子コンポーネントで発生した例外をキャッチして処理する
  */
-class ErrorBoundary extends React.Component<{}, ErrorBoundaryState> {
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: {}) {
     super(props)
     this.state = { hasError: false }

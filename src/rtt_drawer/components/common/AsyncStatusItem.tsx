@@ -68,9 +68,6 @@ const getAsyncActionKind = (
   }
 }
 
-// eslint-disable-next-line react/jsx-props-no-spreading
-const CustomFade: React.FC = (props) => <Fade {...props} unmountOnExit />
-
 type AsyncStatusItemProps = Readonly<{
   /** 発行中のaction */
   action: AsyncAction
@@ -132,7 +129,7 @@ const AsyncStatusItem: React.FC<AsyncStatusItemProps> = ({ action }) => {
       delay={5000}
       show={isShow}
       onClose={handleClose}
-      transition={CustomFade}
+      transition={Fade}
       style={{ backgroundColor: statusToBgColor[status] }}
     >
       <Toast.Header>

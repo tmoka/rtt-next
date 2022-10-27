@@ -52,9 +52,9 @@ type GenbaFormatBadgeProps = Readonly<{
 const GenbaFormatBadge: React.FC<GenbaFormatBadgeProps> = ({ format }) => {
   switch (format) {
     case GenbaFormat.OLD_GENBA:
-      return <Badge variant='secondary'>従来版データ</Badge>
+      return <Badge bg='secondary'>従来版データ</Badge>
     case GenbaFormat.CSV:
-      return <Badge variant='primary'>csvデータ</Badge>
+      return <Badge bg='primary'>csvデータ</Badge>
     default:
       return null
   }

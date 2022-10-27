@@ -9,12 +9,8 @@ import ErrorBoundary from './common/ErrorBoundary'
 import RTTDrawerMenuForm from './menu/RTTDrawerMenuForm'
 
 const ResetButtonPopover = (
-  <Popover id='reset-button-popover'>
-    <Popover.Title>
-      <i className='mr-2 fas fa-times-circle' />
-      リセット
-    </Popover.Title>
-    <Popover.Content>描画メニューをリセットします。</Popover.Content>
+  <Popover id='reset-button-popover' title='リセット'>
+    描画メニューをリセットします。
   </Popover>
 )
 

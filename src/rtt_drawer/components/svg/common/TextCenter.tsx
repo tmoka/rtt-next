@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 type TextCenterProps = Readonly<{
   x?: number
   y?: number
+  children: ReactNode
 }>
 
 /**

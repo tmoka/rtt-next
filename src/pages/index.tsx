@@ -31,7 +31,7 @@ export function SessionComponent() {
   return (
     <>
       Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
+      <button onClick={() => signIn(undefined, { callbackUrl: `${process.env.NEXT_PUBLIC_RTT_STAGING_URL} || 'http://localhost:3000'` })}>Sign in</button>
       <button onClick={() => router.push('signup')}>アカウント登録</button>
     </>
   )

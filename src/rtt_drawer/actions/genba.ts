@@ -26,12 +26,15 @@ export const getGenbaByKeyFailure = getGenbaByKeyAsyncActionCreator.failure
  * @returns 現場データ
  */
 const loadGenba = (): GenbaType => {
+  /*
   const rttDrawerRootDom = document.getElementById('rtt-drawer-root')
   if (!rttDrawerRootDom) {
     throw new Error()
   }
   const genbaJsonStr = rttDrawerRootDom.dataset.genba || ''
   const genba = JSON.parse(genbaJsonStr) as GenbaType
+  */
+  const genba = {rttwebGenba: {id: 1, name: "テスト用現場", kana: "テストようげんば", motouke: ""}, genbaData: {format: "CSV", heimenList: {1: {}}, zentai:{}, torishinNames:{}}}
 
   return genba
 }

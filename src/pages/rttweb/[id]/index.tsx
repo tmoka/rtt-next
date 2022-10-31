@@ -37,7 +37,7 @@ typeof window === 'object' && document.addEventListener('turbolinks:visit', () =
 const genbaId = getCurrentGenbaIdFromURL()
 const genbaKey = genbaIdToKey(genbaId)
 
-const RTT = () => {
+const RTTWeb = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={<Loading />} persistor={persistor}>
@@ -47,4 +47,4 @@ const RTT = () => {
   )
 }
 
-export default RTT
+export default RTTWeb

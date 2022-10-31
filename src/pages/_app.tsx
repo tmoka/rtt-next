@@ -4,14 +4,17 @@ import React from 'react'
 import { SessionProvider } from 'next-auth/react'
 import Layout from '../components/Layout'
 import 'bootstrap/dist/css/bootstrap.css'
+import { SSRProvider } from 'react-bootstrap'
 
 MyApp.getInitialProps = async () => ({ pageProps: {} })
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider session={session}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <SSRProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </SSRProvider>
     </SessionProvider>
   )
 }

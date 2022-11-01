@@ -22,20 +22,17 @@ export const getGenbaByKeySuccess = getGenbaByKeyAsyncActionCreator.success
 export const getGenbaByKeyFailure = getGenbaByKeyAsyncActionCreator.failure
 
 /**
- * rails側で生成した現場のデータをhtmlのdata属性を通して受け取る
+ * バックエンドで生成した現場のデータをhtmlのdata属性を通して受け取る
  * @returns 現場データ
  */
-const loadGenba = (): GenbaType => {
-  /*
+const loadGenba = (): any => {
   const rttDrawerRootDom = document.getElementById('rtt-drawer-root')
   if (!rttDrawerRootDom) {
     throw new Error()
   }
   const genbaJsonStr = rttDrawerRootDom.dataset.genba || ''
+  
   const genba = JSON.parse(genbaJsonStr) as GenbaType
-  */
-  const genba = {rttwebGenba: {id: 1, name: "テスト用現場", kana: "テストようげんば", motouke: ""}, genbaData: {format: "CSV", heimenList: {1: {}}, zentai:{}, torishinNames:{}}}
-
   return genba
 }
 

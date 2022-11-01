@@ -6,42 +6,29 @@ import configureStore from '../../../rtt_drawer/store/configureStore'
 import { genbaIdToKey, getCurrentGenbaIdFromURL } from '../../../rtt_drawer/utils'
 import Loading from '../../../rtt_drawer/components/common/Loading'
 import RTTDrawerPage from '../../../rtt_drawer/containers/RTTDrawerPage'
+import useSWR from 'swr'
+import axios from 'axios'
 
 const { store, persistor } = configureStore()
 
-const targetId = 'rtt-drawer-root'
-
-typeof window === 'object' && document.addEventListener('turbolinks:load', () => {
-  const targetDOM = document.getElementById(targetId)
-  const genbaId = getCurrentGenbaIdFromURL()
-  const genbaKey = genbaIdToKey(genbaId)
-  if (targetDOM) {
-    ReactDOM.render(
-      <Provider store={store}>
-        <PersistGate loading={<Loading />} persistor={persistor}>
-          <RTTDrawerPage genbaKey={genbaKey} />
-        </PersistGate>
-      </Provider>,
-      targetDOM,
-    )
-  }
-})
-
-typeof window === 'object' && document.addEventListener('turbolinks:visit', () => {
-  const targetDOM = document.getElementById(targetId)
-  if (targetDOM) {
-    ReactDOM.unmountComponentAtNode(targetDOM)
-  }
-})
+const rootId = 'rtt-drawer-root'
 
 const genbaId = getCurrentGenbaIdFromURL()
 const genbaKey = genbaIdToKey(genbaId)
 
 const RTTWeb = () => {
+  const fetcher = (url: string) => axios.get(url).then((res) => res.data)
+  const { data, error } = useSWR('/api/rttweb', fetcher)
+  if (!data) return <div>Loading</div>
+  if (error) return <div>エラーが発生しました</div>
+  data.rttwebGenba = { id: 1, name: "テスト用現場", kana: "テストようげんば", motouke: "" }
+
   return (
     <Provider store={store}>
       <PersistGate loading={<Loading />} persistor={persistor}>
-        <RTTDrawerPage genbaKey={genbaKey} />
+        <div id={rootId} data-genba={JSON.stringify(data)}>
+          <RTTDrawerPage genbaKey={genbaKey} />
+        </div>
       </PersistGate>
     </Provider>
   )

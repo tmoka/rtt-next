@@ -8,6 +8,7 @@ import Loading from '../../../rtt_drawer/components/common/Loading'
 import RTTDrawerPage from '../../../rtt_drawer/containers/RTTDrawerPage'
 import useSWR from 'swr'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 const { store, persistor } = configureStore()
 
@@ -17,9 +18,13 @@ const genbaId = getCurrentGenbaIdFromURL()
 const genbaKey = genbaIdToKey(genbaId)
 
 const RTTWeb = () => {
+  const router = useRouter()
+  const { id } = router.query
+
   const fetcher = (url: string) => axios.get(url).then((res) => res.data)
-  const { data, error } = useSWR('/api/rttweb', fetcher)
-  if (!data) return <div>Loading</div>
+  const { data, error } = useSWR('/api/rttweb/' + id, fetcher)
+  const { data: genba, error: genbaError } = useSWR('/api/genbas/' + id, fetcher)
+  if (!data || !genba) return <div>Loading</div>
   if (error) return <div>エラーが発生しました</div>
   data.rttwebGenba = { id: 1, name: "テスト用現場", kana: "テストようげんば", motouke: "" }
 

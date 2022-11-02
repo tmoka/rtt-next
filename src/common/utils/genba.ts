@@ -26,5 +26,7 @@ export const genbaKeyToId = (genbaKey: GenbaKeyType): GenbaIdType => Number(genb
 /**
  * URLから閲覧中の現場のidを取得する
  */
-export const getCurrentGenbaIdFromURL = (): GenbaIdType =>
-  Number(window.location.pathname.split('/')[2])
+export const getCurrentGenbaIdFromURL = (): GenbaIdType => {
+  if(typeof window === 'object') {return Number(window.location.pathname.split('/')[2])} 
+  return 0;
+}

@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { NextApiRequest, NextApiResponse } from 'next'
+import { prisma } from '../../../db'
 
-const prisma = new PrismaClient()
 
 const usersHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {

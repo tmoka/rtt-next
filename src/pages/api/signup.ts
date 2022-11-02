@@ -1,8 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { hash } from 'argon2'
 import { NextApiRequest, NextApiResponse } from 'next'
-
-const prisma = new PrismaClient()
+import { prisma } from '../../db'
 
 const signupHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {

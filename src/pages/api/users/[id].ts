@@ -2,8 +2,7 @@ import { PrismaClient } from '@prisma/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { useRouter } from 'next/router'
 import usersController from '.'
-
-const prisma = new PrismaClient()
+import { prisma } from '../../../db'
 
 const userHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   let { id } = req.query

@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import router, { Router } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
-import { Button } from 'react-bootstrap'
+import { Button, Alert } from 'react-bootstrap'
 import { NextPage } from 'next'
 
 const Home: NextPage = () => {
@@ -18,6 +18,7 @@ const Home: NextPage = () => {
 }
 
 export const SessionComponent = () => {
+  const [showAlert, setShowAlert] = useState(true);
   const { data: session } = useSession()
   if (session) {
     return (
@@ -32,8 +33,10 @@ export const SessionComponent = () => {
   }
   return (
     <>
-      Not signed in <br />
-      <Button onClick={() => signIn()}>Sign in</Button>{' '}
+      {showAlert ?
+        <Alert variant='warning' onClose={() => setShowAlert(false)} dismissible>ログインもしくはアカウント登録してください。</Alert> : null
+      }
+      <Button onClick={() => signIn()}>ログイン</Button>{' '}
       <Button onClick={() => router.push('signup')}>アカウント登録</Button>
     </>
   )

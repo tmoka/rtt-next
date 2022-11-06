@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import useSWR from 'swr'
 import Link from 'next/link'
 import { NextPage } from 'next'
+import { Alert } from 'react-bootstrap'
 
 const User: NextPage = () => {
   const router = useRouter()
@@ -17,28 +18,27 @@ const User: NextPage = () => {
   }
 
   const fetcher = (url: string) => axios.get(url).then((res) => res.data)
-  const { data, error } = useSWR('/api/users/' + id, fetcher)
-  if (!id) return <>Loading</>
-  if (!data) return <div>Loading</div>
-  if (error) return <div>エラーが発生しました</div>
+  const { data: user, error } = useSWR('/api/users/' + id, fetcher)
+  if (!id || !user) return <Alert variant='warning'>データをロード中です</Alert>
+  if (error) return <Alert variant='danger'>エラーが発生しました</Alert>
 
   const handleDelete = () => {
     axios
-      .delete('/api/users/' + id, data)
+      .delete('/api/users/' + id, user)
       .then((res) => {
         alert(JSON.stringify(res))
       })
       .catch((err) => console.error(err))
-    alert(JSON.stringify(data))
+    alert(JSON.stringify(user))
     router.push('/users')
   }
 
   return (
     <>
-      <p>{data.name}</p>
-      <p>{data.kana}</p>
-      <p>{data.email}</p>
-      <Link href={`/users/${encodeURIComponent(data.id)}/edit`}>
+      <p>{user.name}</p>
+      <p>{user.kana}</p>
+      <p>{user.email}</p>
+      <Link href={`/users/${encodeURIComponent(user.id)}/edit`}>
         <button>編集</button>
       </Link>
       <button onClick={handleDelete}>削除</button>

@@ -4,6 +4,7 @@ import router from 'next/router'
 import useSWR from 'swr'
 import Link from 'next/link'
 import { NextPage } from 'next'
+import { Alert } from 'react-bootstrap'
 
 const Users: NextPage = () => {
   type UserType = {
@@ -20,13 +21,13 @@ const Users: NextPage = () => {
   }
 
   const fetcher = (url: string) => axios.get(url).then((res) => res.data)
-  const { data, error } = useSWR('/api/users', fetcher)
-  if (!data) return <div>Loading</div>
-  if (error) return <div>エラーが発生しました</div>
+  const { data: users, error } = useSWR('/api/users', fetcher)
+  if (!users) return <Alert variant='warning'>データをロード中です</Alert>
+  if (error) return <Alert variant='danger'>エラーが発生しました</Alert>
 
   return (
     <>
-      {data.map((user: UserType) => {
+      {users.map((user: UserType) => {
         return (
           <>
             <p>{user.name}</p>

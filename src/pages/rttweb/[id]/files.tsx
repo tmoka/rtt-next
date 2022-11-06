@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import useSWR from 'swr'
-import { Button } from 'react-bootstrap'
+import { Button, Alert } from 'react-bootstrap'
 
 const FILES_API_FILE_FORM_KEY = 'file'
 
@@ -13,8 +13,7 @@ const Files: NextPage = () => {
   const { id } = router.query
 
   const fetcher = (url: string) => axios.get(url).then((res) => res.data)
-  const { data, error } = useSWR('/api/genbas/' + id + '/files', fetcher)
-  console.log(data)
+  const { data: files, error } = useSWR('/api/genbas/' + id + '/files', fetcher)
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     const formData = new FormData()
@@ -31,9 +30,10 @@ const Files: NextPage = () => {
   }, [])
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
-  const handleDelete = () => {}
+  const handleDelete = () => { }
 
-  if (!data) return <>loading</>
+  if (!files) return <Alert variant='warning'>データをロード中です</Alert>
+  if (error) return <Alert variant='danger'>エラーが発生しました</Alert>
 
   return (
     <section className='container'>
@@ -45,10 +45,10 @@ const Files: NextPage = () => {
           <p>Drag 'n' drop some files here, or click to select files</p>
         )}
       </div>
-      <h2>{data.length}個のファイル</h2>
+      <h2>{files.length}個のファイル</h2>
       <Button variant='primary'>ダウンロード</Button>
       <Button variant='danger'>全削除</Button>
-      {data.map((elem: any, idx: number) => {
+      {files.map((elem: any, idx: number) => {
         return (
           <>
             <p key={idx}>{elem.fileName}</p>

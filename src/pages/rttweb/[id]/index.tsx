@@ -9,6 +9,7 @@ import RTTDrawerPage from '../../../rtt_drawer/containers/RTTDrawerPage'
 import useSWR from 'swr'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { Alert } from 'react-bootstrap'
 
 const { store, persistor } = configureStore()
 
@@ -22,16 +23,16 @@ const RTTWeb = () => {
   const { id } = router.query
 
   const fetcher = (url: string) => axios.get(url).then((res) => res.data)
-  const { data, error } = useSWR('/api/rttweb/' + id, fetcher)
+  const { data: rttwebGenbaData, error: rttwebError } = useSWR('/api/rttweb/' + id, fetcher)
   const { data: genba, error: genbaError } = useSWR('/api/genbas/' + id, fetcher)
-  if (!data || !genba) return <div>Loading</div>
-  if (error) return <div>エラーが発生しました</div>
-  data.rttwebGenba = { id: 1, name: 'テスト用現場', kana: 'テストようげんば', motouke: '' }
+  if (!rttwebGenbaData || !genba) return <Alert variant='warning'>データをロード中です</Alert>
+  if (rttwebError || genbaError) return <Alert variant='danger'>エラーが発生しました</Alert>
+  rttwebGenbaData.rttwebGenba = { id: genba.id, name: genba.name, kana: genba.kana, motouke: genba.motouke }
 
   return (
     <Provider store={store}>
       <PersistGate loading={<Loading />} persistor={persistor}>
-        <div id={rootId} data-genba={JSON.stringify(data)}>
+        <div id={rootId} data-genba={JSON.stringify(rttwebGenbaData)}>
           <RTTDrawerPage genbaKey={genbaKey} />
         </div>
       </PersistGate>

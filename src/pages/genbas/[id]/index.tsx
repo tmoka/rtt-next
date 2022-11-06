@@ -3,7 +3,7 @@ import { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
-import { Button } from 'react-bootstrap'
+import { Button, Alert } from 'react-bootstrap'
 import Link from 'next/link'
 
 const Genba: NextPage = () => {
@@ -18,9 +18,8 @@ const Genba: NextPage = () => {
 
   const fetcher = (url: string) => axios.get(url).then((res) => res.data)
   const { data: genba, error } = useSWR('/api/genbas/' + id, fetcher)
-  if (!id) return <>Loading</>
-  if (!genba) return <div>Loading</div>
-  if (error) return <div>エラーが発生しました</div>
+  if (!id || !genba) return <Alert variant='warning'>データをロード中です</Alert>
+  if (error) return <Alert variant='danger'>エラーが発生しました</Alert>
 
   const handleDelete = () => {
     axios

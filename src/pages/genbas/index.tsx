@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { NextPage } from 'next'
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
+import Alert from 'react-bootstrap/Alert'
 import { PlusLg } from 'react-bootstrap-icons'
 import { RTTWebGenbaType } from '../../common/types'
 
@@ -18,8 +19,8 @@ const Genbas: NextPage = () => {
 
   const fetcher = (url: string) => axios.get(url).then((res) => res.data)
   const { data: genbas, error } = useSWR('/api/genbas', fetcher)
-  if (!genbas) return <div>Loading</div>
-  if (error) return <div>エラーが発生しました</div>
+  if (!genbas) return <Alert variant='warning'>データをロード中です</Alert>
+  if (error) return <Alert variant='danger'>エラーが発生しました</Alert>
 
   return (
     <>

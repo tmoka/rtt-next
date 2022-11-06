@@ -3,36 +3,36 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useForm, Controller } from 'react-hook-form'
 import useSWR from 'swr'
+import { Alert } from 'react-bootstrap'
 
-const UserEdit: NextPage = () => {
-  type UserEditType = {
+const EditUser: NextPage = () => {
+  type EditUserType = {
     name: string
     kana: string
     email: string
   }
 
-  const { control, handleSubmit, setValue } = useForm<UserEditType>()
+  const { control, handleSubmit, setValue } = useForm<EditUserType>()
 
   const router = useRouter()
   const { id } = router.query
 
   const fetcher = (url: string) => axios.get(url).then((res) => res.data)
-  const { data, error } = useSWR('/api/users/' + id, fetcher)
-  if (!id) return <>Loading</>
-  if (!data) return <div>Loading</div>
-  if (error) return <div>エラーが発生しました</div>
-  setValue('name', data.name)
-  setValue('kana', data.kana)
-  setValue('email', data.email)
+  const { data: editUser, error } = useSWR('/api/users/' + id, fetcher)
+  if (!id || !editUser) return <Alert variant='warning'>データをロード中です</Alert>
+  if (error) return <Alert variant='danger'>エラーが発生しました</Alert>
+  setValue('name', editUser.name)
+  setValue('kana', editUser.kana)
+  setValue('email', editUser.email)
 
-  const onSubmit = (data: UserEditType) => {
+  const onSubmit = (editUser: EditUserType) => {
     axios
-      .put('/api/users/' + id, data)
+      .put('/api/users/' + id, editUser)
       .then((res) => {
         alert(JSON.stringify(res))
       })
       .catch((err) => console.error(err))
-    alert(JSON.stringify(data))
+    alert(JSON.stringify(editUser))
     router.push('/users')
   }
 
@@ -72,4 +72,4 @@ const UserEdit: NextPage = () => {
   )
 }
 
-export default UserEdit
+export default EditUser

@@ -38,9 +38,6 @@ const Genba: NextPage = () => {
       <h1>現場詳細</h1>
       <p>現場ID：{genba.id}</p>
       <p>現場名：{genba.name}</p>
-      <Link href={'/genbas/' + genba.id + '/piles'}>
-        <Button variant='primary'>杭一覧</Button>
-      </Link>{' '}
       <Link href={'/genbas/' + genba.id + '/edit'}>
         <Button variant='secondary'>編集</Button>
       </Link>{' '}

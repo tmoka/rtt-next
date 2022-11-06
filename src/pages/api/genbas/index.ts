@@ -3,7 +3,7 @@ import { prisma } from '../../../db'
 
 const genbasHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
-    const allGenbas = await prisma.user.findMany()
+    const allGenbas = await prisma.genba.findMany()
     return res.json(allGenbas)
   }
   if (req.method === 'POST') {

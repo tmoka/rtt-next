@@ -6,14 +6,9 @@ import Link from 'next/link'
 import { NextPage } from 'next'
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
+import { RTTWebGenbaType } from '../../common/types'
 
 const Genbas: NextPage = () => {
-  type GenbaType = {
-    id: number
-    name: string
-    motouke?: string
-  }
-
   const session = useSession()
 
   if (session.status == 'unauthenticated') {
@@ -21,25 +16,11 @@ const Genbas: NextPage = () => {
   }
 
   const fetcher = (url: string) => axios.get(url).then((res) => res.data)
-  /*
-  const { data, error } = useSWR('/api/genbas', fetcher)
-  if (!data) return <div>Loading</div>
+
+  const { data: genbas, error } = useSWR('/api/genbas', fetcher)
+  if (!genbas) return <div>Loading</div>
   if (error) return <div>エラーが発生しました</div>
 
-  */
-
-  const data = [
-    {
-      id: 1,
-      name: 'テスト現場',
-      motouke: '竹中工務店',
-    },
-    {
-      id: 2,
-      name: '現場現場',
-      motouke: '',
-    },
-  ]
 
   return (
     <>
@@ -54,7 +35,7 @@ const Genbas: NextPage = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((genba: GenbaType) => {
+          {genbas.map((genba: RTTWebGenbaType) => {
             return (
               <tr>
                 <td>{genba.id}</td>

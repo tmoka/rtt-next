@@ -1,5 +1,5 @@
-import { NextPage } from 'next'
-import { ReactNode } from 'react'
+import React, { ReactNode } from 'react'
+import Footer from './Footer'
 import Header from './Header'
 
 const Layout = ({ children }: { children: ReactNode }) => {
@@ -7,6 +7,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
     <>
       <Header />
       <main>{children}</main>
+      <Footer />
     </>
   )
 }

@@ -27,7 +27,7 @@ class RTTDrawerPage extends React.Component<RTTDrawerPageProps> {
 
   public render(): React.ReactNode {
     const { genbaKey, onPDFDownload } = this.props
-    console.log("GETGENBABYKEY", getGenbaByKey(genbaKey))
+    console.log('GETGENBABYKEY', getGenbaByKey(genbaKey))
     return <RTTDrawerContainer genbaKey={genbaKey} onPDFDownload={onPDFDownload} />
   }
 }

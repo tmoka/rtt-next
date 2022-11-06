@@ -15,10 +15,10 @@ export * from './types'
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const Tracker: TrackerConstructor = require('./tracker.web').TrackerOnWeb
 
-    // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
-      //require('./tracker.web').TrackerOnWeb
-    // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
-      //require('./tracker.renderer').TrackerOnElectron
+// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
+//require('./tracker.web').TrackerOnWeb
+// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
+//require('./tracker.renderer').TrackerOnElectron
 
 /**
  * google analytics の tracking id

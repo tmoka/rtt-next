@@ -204,8 +204,8 @@ const PointMark: React.FC<PointMarkProps> = ({
     const textAnchor = i === 0 ? 'end' : 'start'
     const style = fontSize
       ? {
-        fontSize: `${fontSize}px`,
-      }
+          fontSize: `${fontSize}px`,
+        }
       : {}
 
     return (

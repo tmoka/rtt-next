@@ -26,7 +26,7 @@ const RTTWeb = () => {
   const { data: genba, error: genbaError } = useSWR('/api/genbas/' + id, fetcher)
   if (!data || !genba) return <div>Loading</div>
   if (error) return <div>エラーが発生しました</div>
-  data.rttwebGenba = { id: 1, name: "テスト用現場", kana: "テストようげんば", motouke: "" }
+  data.rttwebGenba = { id: 1, name: 'テスト用現場', kana: 'テストようげんば', motouke: '' }
 
   return (
     <Provider store={store}>

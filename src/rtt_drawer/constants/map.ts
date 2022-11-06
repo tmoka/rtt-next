@@ -30,7 +30,7 @@ export const DEFAULT_STROKE_WIDTH = 1.5
 
 /* eslint-disable no-nested-ternary */
 const mouseWheelEventTemp =
-  process.env.TARGET === 'node' 
+  process.env.TARGET === 'node'
     ? ''
     : typeof window === 'object' && 'onwheel' in document
     ? 'wheel'

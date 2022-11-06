@@ -13,8 +13,15 @@ import {
   useAdditionalListener,
   useNewEventEmitter,
 } from '../../../../../modules/react-shape-editor/dist/EventEmitter'
-import { useIsMountedRef, useUpdatingRef } from '../../../../../modules/react-shape-editor/dist/hooks'
-import { Point, Rectangle, ShapeActions } from '../../../../../modules/react-shape-editor/dist/types'
+import {
+  useIsMountedRef,
+  useUpdatingRef,
+} from '../../../../../modules/react-shape-editor/dist/hooks'
+import {
+  Point,
+  Rectangle,
+  ShapeActions,
+} from '../../../../../modules/react-shape-editor/dist/types'
 import {
   CoordinateGetterRefProvider,
   DimensionsProvider,
@@ -76,7 +83,7 @@ const useChildAddDeleteHandler = (
       })
 
       if (closestShapeActions !== null) {
-        ; (closestShapeActions as ShapeActions).forceFocus()
+        ;(closestShapeActions as ShapeActions).forceFocus()
       }
     }
 
@@ -139,13 +146,13 @@ const ShapeEditorContexts: React.FC<ShapeEditorContextsProps> = ({
     bottom: paddingBottom,
     left: paddingLeft,
   } = typeof padding === 'number'
-      ? {
+    ? {
         top: padding,
         right: padding,
         bottom: padding,
         left: padding,
       }
-      : {
+    : {
         top: 0,
         right: 0,
         bottom: 0,

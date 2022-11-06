@@ -3,6 +3,7 @@ import { useSession, signIn, signOut } from 'next-auth/react'
 import router, { Router } from 'next/router'
 import React from 'react'
 import Link from 'next/link'
+import { Button } from 'react-bootstrap'
 
 export default function Home() {
   return (
@@ -21,9 +22,9 @@ export function SessionComponent() {
     return (
       <>
         Signed in as {session?.user?.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
+        <Button onClick={() => signOut()}>Sign out</Button>
         <Link href='/users'>
-          <button>ユーザ一覧</button>
+          <Button>ユーザ一覧</Button>
         </Link>
       </>
     )
@@ -31,8 +32,8 @@ export function SessionComponent() {
   return (
     <>
       Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
-      <button onClick={() => router.push('signup')}>アカウント登録</button>
+      <Button onClick={() => signIn()}>Sign in</Button>
+      <Button onClick={() => router.push('signup')}>アカウント登録</Button>
     </>
   )
 }

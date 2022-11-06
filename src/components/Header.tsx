@@ -13,7 +13,7 @@ const Header = () => {
 
   return (
     <>
-      <Navbar bg='white' expand='lg'>
+      <Navbar bg='white' expand='lg' style={{ borderBottom: '5px solid #517480' }}>
         <Container>
           <Navbar.Brand href='/'>
             <Image

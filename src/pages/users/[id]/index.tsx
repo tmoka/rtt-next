@@ -5,7 +5,8 @@ import { useEffect } from 'react'
 import useSWR from 'swr'
 import Link from 'next/link'
 import { NextPage } from 'next'
-import { Alert } from 'react-bootstrap'
+import { Alert, Button, Table } from 'react-bootstrap'
+import { ArrowLeftCircle, Trash, Trash3Fill } from 'react-bootstrap-icons'
 
 const User: NextPage = () => {
   const router = useRouter()
@@ -35,13 +36,37 @@ const User: NextPage = () => {
 
   return (
     <>
-      <p>{user.name}</p>
-      <p>{user.kana}</p>
-      <p>{user.email}</p>
-      <Link href={`/users/${encodeURIComponent(user.id)}/edit`}>
-        <button>編集</button>
+      <h1>{user.name} の詳細</h1>
+      <Table>
+        <tbody>
+          <tr>
+            <th>氏名</th>
+            <td>{user.name}</td>
+          </tr>
+          <tr>
+            <th>フリガナ</th>
+            <td>{user.kana}</td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td>{user.email}</td>
+          </tr>
+          <tr>
+            <th>会社</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>権限</th>
+            <td></td>
+          </tr>
+        </tbody>
+      </Table>
+      <h2>所属している現場</h2>
+
+      <Button className='m-1' variant='danger' onClick={handleDelete}><Trash3Fill /> ユーザを削除</Button><br />
+      <Link href={`/users`}>
+        <Button className='m-1' variant='secondary'><ArrowLeftCircle /> ユーザーリストに戻る</Button>
       </Link>
-      <button onClick={handleDelete}>削除</button>
     </>
   )
 }

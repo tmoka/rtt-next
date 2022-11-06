@@ -4,25 +4,26 @@ import router, { Router } from 'next/router'
 import React from 'react'
 import Link from 'next/link'
 import { Button } from 'react-bootstrap'
+import { NextPage } from 'next'
 
-export default function Home() {
+const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>POC</title>
+        <title>RTTWeb</title>
       </Head>
       <SessionComponent />
     </div>
   )
 }
 
-export function SessionComponent() {
+export const SessionComponent = () => {
   const { data: session } = useSession()
   if (session) {
     return (
       <>
         Signed in as {session?.user?.email} <br />
-        <Button onClick={() => signOut()}>Sign out</Button>
+        <Button onClick={() => signOut()}>Sign out</Button>{' '}
         <Link href='/users'>
           <Button>ユーザ一覧</Button>
         </Link>
@@ -32,8 +33,10 @@ export function SessionComponent() {
   return (
     <>
       Not signed in <br />
-      <Button onClick={() => signIn()}>Sign in</Button>
+      <Button onClick={() => signIn()}>Sign in</Button>{' '}
       <Button onClick={() => router.push('signup')}>アカウント登録</Button>
     </>
   )
 }
+
+export default Home

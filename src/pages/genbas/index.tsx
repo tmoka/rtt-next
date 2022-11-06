@@ -35,6 +35,7 @@ const Genbas: NextPage = () => {
           <tr>
             <th>ID</th>
             <th>現場名</th>
+            <th>元請け</th>
             <th></th>
           </tr>
         </thead>
@@ -44,8 +45,9 @@ const Genbas: NextPage = () => {
               <tr>
                 <td>{genba.id}</td>
                 <td>{genba.name}</td>
+                <td></td>
                 <td>
-                  <Link href={'/genbas/' + genba.id + '/piles'}>
+                  <Link href={'/rttweb/' + genba.id}>
                     <Button variant='primary' id={'genba-pile-button-' + genba.id}>
                       描画
                     </Button>
@@ -55,9 +57,9 @@ const Genbas: NextPage = () => {
                       詳細
                     </Button>
                   </Link>{' '}
-                  <Link href={'/genbas/' + genba.id + '/edit'}>
+                  <Link href={'/rttweb/' + genba.id + '/files'}>
                     <Button variant='secondary' id={'genba-edit-button-' + genba.id}>
-                      編集
+                      フォルダ
                     </Button>
                   </Link>
                 </td>

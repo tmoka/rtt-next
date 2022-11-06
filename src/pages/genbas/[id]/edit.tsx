@@ -8,6 +8,8 @@ import { Button, Form, Alert } from 'react-bootstrap'
 const EditGenba: NextPage = () => {
   type EditGenbaType = {
     name: string
+    kana?: string
+    motouke?: string
   }
 
   const { control, handleSubmit, setValue } = useForm<EditGenbaType>()
@@ -34,20 +36,39 @@ const EditGenba: NextPage = () => {
 
   return (
     <div>
-      <h1>現場編集</h1>
+      <h1>現場を更新する</h1>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group>
-          <Form.Label>現場名</Form.Label>
+          <Form.Label>現場名<span style={{ color: 'red' }}>*</span></Form.Label>
           <Controller
             render={({ field: { onChange, onBlur, value, ref } }) => (
               <Form.Control onChange={onChange} onBlur={onBlur} value={value} ref={ref} />
             )}
             name='name'
             control={control}
-            defaultValue={editGenba.name}
+            defaultValue=''
+          />
+          <Form.Label>フリガナ</Form.Label>
+          <Controller
+            render={({ field: { onChange, onBlur, value, ref } }) => (
+              <Form.Control onChange={onChange} onBlur={onBlur} value={value} ref={ref} />
+            )}
+            name='kana'
+            control={control}
+            defaultValue=''
+          />
+          <Form.Label>元請け</Form.Label>
+          <Controller
+            render={({ field: { onChange, onBlur, value, ref } }) => (
+              <Form.Control onChange={onChange} onBlur={onBlur} value={value} ref={ref} />
+            )}
+            name='motouke'
+            control={control}
+            defaultValue=''
           />
         </Form.Group>
-        <Button type='submit'>編集</Button>
+        <Button className='mt-2' type='submit'>更新</Button>
+        <Button className='mt-2 ms-1' variant='secondary' onClick={() => router.back()}>キャンセル</Button>
       </Form>
     </div>
   )

@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { NextPage } from 'next'
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
+import Alert from 'react-bootstrap/Alert'
 import { PlusLg } from 'react-bootstrap-icons'
 import { RTTWebGenbaType } from '../../common/types'
 
@@ -18,8 +19,8 @@ const Genbas: NextPage = () => {
 
   const fetcher = (url: string) => axios.get(url).then((res) => res.data)
   const { data: genbas, error } = useSWR('/api/genbas', fetcher)
-  if (!genbas) return <div>Loading</div>
-  if (error) return <div>エラーが発生しました</div>
+  if (!genbas) return <Alert variant='warning'>データをロード中です</Alert>
+  if (error) return <Alert variant='danger'>エラーが発生しました</Alert>
 
   return (
     <>
@@ -34,6 +35,7 @@ const Genbas: NextPage = () => {
           <tr>
             <th>ID</th>
             <th>現場名</th>
+            <th>元請け</th>
             <th></th>
           </tr>
         </thead>
@@ -43,8 +45,9 @@ const Genbas: NextPage = () => {
               <tr>
                 <td>{genba.id}</td>
                 <td>{genba.name}</td>
+                <td></td>
                 <td>
-                  <Link href={'/genbas/' + genba.id + '/piles'}>
+                  <Link href={'/rttweb/' + genba.id}>
                     <Button variant='primary' id={'genba-pile-button-' + genba.id}>
                       描画
                     </Button>
@@ -54,9 +57,9 @@ const Genbas: NextPage = () => {
                       詳細
                     </Button>
                   </Link>{' '}
-                  <Link href={'/genbas/' + genba.id + '/edit'}>
+                  <Link href={'/rttweb/' + genba.id + '/files'}>
                     <Button variant='secondary' id={'genba-edit-button-' + genba.id}>
-                      編集
+                      フォルダ
                     </Button>
                   </Link>
                 </td>

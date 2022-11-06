@@ -2,6 +2,9 @@ import axios from 'axios'
 import router from 'next/router'
 import React from 'react'
 import { useForm, Controller } from 'react-hook-form'
+import { Form } from 'react-bootstrap'
+import Button from 'react-bootstrap/Button'
+import Link from 'next/link'
 
 const SignUp = (): JSX.Element => {
   type UserSignUpType = {
@@ -31,54 +34,57 @@ const SignUp = (): JSX.Element => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <section>
-          <label>Email</label>
+      <h1>アカウント登録</h1>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form.Group>
+          <Form.Label>Email<span style={{ color: 'red' }}>*</span></Form.Label>
           <Controller
-            render={({ field }) => <input {...field} type='email' />}
+            render={({ field: { onChange, onBlur, value, ref } }) => (
+              <Form.Control type='email' onChange={onChange} onBlur={onBlur} value={value} ref={ref} />
+            )}
             name='email'
             control={control}
             defaultValue=''
           />
-        </section>
-        <section>
-          <label>氏名</label>
+          <Form.Label>氏名<span style={{ color: 'red' }}>*</span></Form.Label>
           <Controller
-            render={({ field }) => <input {...field} />}
+            render={({ field: { onChange, onBlur, value, ref } }) => (
+              <Form.Control onChange={onChange} onBlur={onBlur} value={value} ref={ref} />
+            )}
             name='name'
             control={control}
             defaultValue=''
           />
-        </section>
-        <section>
-          <label>フリガナ</label>
+          <Form.Label>フリガナ<span style={{ color: 'red' }}>*</span></Form.Label>
           <Controller
-            render={({ field }) => <input {...field} />}
+            render={({ field: { onChange, onBlur, value, ref } }) => (
+              <Form.Control onChange={onChange} onBlur={onBlur} value={value} ref={ref} />
+            )}
             name='kana'
             control={control}
             defaultValue=''
           />
-        </section>
-        <section>
-          <label>パスワード</label>
+          <Form.Label>パスワード</Form.Label>
           <Controller
-            render={({ field }) => <input {...field} type='password' />}
+            render={({ field: { onChange, onBlur, value, ref } }) => (
+              <Form.Control type='password' onChange={onChange} onBlur={onBlur} value={value} ref={ref} />
+            )}
             name='password'
             control={control}
             defaultValue=''
           />
-        </section>
-        <section>
-          <label>確認用パスワード</label>
+          <Form.Label>確認用パスワード</Form.Label>
           <Controller
-            render={({ field }) => <input {...field} type='password' />}
+            render={({ field: { onChange, onBlur, value, ref } }) => (
+              <Form.Control type='password' onChange={onChange} onBlur={onBlur} value={value} ref={ref} />
+            )}
             name='confirmPassword'
             control={control}
             defaultValue=''
           />
-        </section>
-        <button type='submit'>アカウント登録</button>
-      </form>
+        </Form.Group>
+        <Button className='mt-3' type='submit'>アカウント登録</Button>
+      </Form>
     </div>
   )
 }

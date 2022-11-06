@@ -17,7 +17,7 @@ const form = formidable({ multiples: true })
 const filesHandler = (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query
   if (req.method === 'GET') {
-    const dirPath = path.join('uploads', 'genbas', padZero(Number(id), UPLOAD_FOLDER_NAME_LENGTH))
+    const dirPath = path.join('uploads', 'genbas', padZero(Number(id), UPLOAD_FOLDER_NAME_LENGTH), 'rttweb', 'original')
     const fileNameList = fs.readdirSync(dirPath)
     let results: object[] = []
     fileNameList.map((fileName: string) => {

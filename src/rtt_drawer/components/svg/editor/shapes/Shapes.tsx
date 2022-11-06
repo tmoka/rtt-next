@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
-import { ConstrainMoveFunc, Rectangle, WrappedShapeProps } from '../../../../../../modules/react-shape-editor/dist/types'
+import {
+  ConstrainMoveFunc,
+  Rectangle,
+  WrappedShapeProps,
+} from '../../../../../../modules/react-shape-editor/dist/types'
 import { GenbaKeyType } from '../../../../../common/types'
 import { replaceEditorShapes } from '../../../../actions'
 import {

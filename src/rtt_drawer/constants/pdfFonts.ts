@@ -26,9 +26,7 @@ const [notoSansCJKjpRegularMin, notoSansCJKjpBoldMin] =
     ? ['DUMMY_PATH', 'DUMMY_PATH']
     : [
         // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
-
         // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
-
       ]
 
 const notoSansCJKjpRegularMinURL = `${KANGI3D_HOST}${notoSansCJKjpRegularMin}`

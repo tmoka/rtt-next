@@ -31,7 +31,7 @@ const loadGenba = (): any => {
     throw new Error()
   }
   const genbaJsonStr = rttDrawerRootDom.dataset.genba || ''
-  
+
   const genba = JSON.parse(genbaJsonStr) as GenbaType
   return genba
 }

@@ -1,13 +1,20 @@
-import { NextApiRequest, NextApiResponse } from "next"
+import { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../../db'
 
 const genbasHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-    let { id } = req.query
-  
-    if (req.method === 'GET') {
-      const allGenbas = await prisma.user.findMany()
-      return res.json(allGenbas)
-    }
+  if (req.method === 'GET') {
+    const allGenbas = await prisma.user.findMany()
+    return res.json(allGenbas)
   }
-  export default genbasHandler
-  
+  if (req.method === 'POST') {
+    const name = req.body.name
+
+    const createGenba = await prisma.genba.create({
+      data: {
+        name,
+      },
+    })
+    return res.json(createGenba)
+  }
+}
+export default genbasHandler

@@ -1,18 +1,18 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { PrismaClient } from '@prisma/client'
 import { verify } from 'argon2'
 import { prisma } from '../../../db'
 
 export default NextAuth({
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
       // サインインフォームに表示する名前 (例: "Sign in with...")
-      name: 'Credentials POC',
-      // 認証情報は、サインインページに適切なフォームを生成するために使用されます。
-      // 送信されることを期待するフィールドを何でも指定することができます。
-      // 例: ドメイン、ユーザー名、パスワード、2FAトークンなど。
-      // オブジェクトを通して、任意の HTML 属性を <input> タグに渡すことができます。
+      name: 'ログインフォーム',
+      // 認証情報はサインインページに適切なフォームを生成するために使用される
+      // 送信されることを期待するフィールドを何でも指定できる
+      // 例: ドメイン、ユーザー名、パスワード、2FAトークンなど
+      // オブジェクトを通して任意の HTML 属性を <input> タグに渡すことができる
       credentials: {
         email: { label: 'メールアドレス', type: 'email', placeholder: 'メールアドレス' },
         password: { label: 'パスワード', type: 'password' },
@@ -25,7 +25,7 @@ export default NextAuth({
         const password = credentials?.password
         if (!password) return null
 
-        const user = await prisma.user.findFirst({
+        const user = await prisma.user.findUnique({
           where: {
             email,
           },
@@ -39,9 +39,8 @@ export default NextAuth({
         if (isValidPassword) {
           return user
         } else {
-          // もし、NULLを返した場合は、ユーザーに詳細を確認するよう促すエラーが表示されます。
+          // NULLを返した場合、ユーザーに詳細を確認するよう促すエラーが表示される
           return null
-          // また、このコールバックをエラーで拒否することもできます。この場合、ユーザーはエラーメッセージをクエリパラメータとして持つエラーページに送られます。
         }
       },
     }),
@@ -49,5 +48,12 @@ export default NextAuth({
   session: {
     strategy: 'jwt',
     maxAge: 30 * 24 * 60 * 60,
+    updateAge: 24 * 60 * 60,
+  },
+  jwt: {
+    signingKey: {"kty":"oct","kid":"--","alg":"HS256","k":"--"},
+    verificationOptions: {
+      algorithms: ["HS256"]
+    }
   },
 })

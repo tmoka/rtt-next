@@ -31,7 +31,7 @@ const Header = () => {
                 <>
                   <Nav.Link href='/'>RTTWeb</Nav.Link>
                   <Nav.Link href='/signup'>新規登録</Nav.Link>
-                  <Nav.Link onClick={() => signIn()}>ログイン</Nav.Link>
+                  <Nav.Link onClick={() => signIn(undefined, { callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}` })}>ログイン</Nav.Link>
                 </>
               ) : (
                 <>
@@ -55,7 +55,7 @@ const Header = () => {
                     id='basic-nav-dropdown'
                   >
                     <NavDropdown.Item>マイページ</NavDropdown.Item>
-                    <NavDropdown.Item onClick={() => signOut()}>ログアウト</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}` })}>ログアウト</NavDropdown.Item>
                   </NavDropdown>
                 </>
               )}

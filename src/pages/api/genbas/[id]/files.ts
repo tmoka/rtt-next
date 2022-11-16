@@ -51,7 +51,7 @@ const saveFile = async (file: any, genbaId: string) => {
     padZero(Number(genbaId), UPLOAD_FOLDER_NAME_LENGTH),
   )
   fs.existsSync(uploadPath) ? null : fs.mkdirSync(uploadPath)
-  fs.writeFileSync(uploadPath + `/${file.originalFilename}`, data)
+  fs.writeFileSync(`${uploadPath}/rttweb/original/${file.originalFilename}`, data)
   await fs.unlinkSync(file.filepath)
   return
 }

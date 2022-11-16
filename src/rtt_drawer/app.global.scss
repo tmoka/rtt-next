@@ -1,0 +1,296 @@
+
+
+.rtt-drawer svg {
+  font-family: 'Noto Sans Japanese', sans-serif;
+}
+
+// rtt_drawer
+
+$stage-kih-color: #fff;
+$stage-tat-color: #d9534f;
+$stage-hon-color: #5bc0de;
+$stage-you-color: #337ab7;
+$stage-con-color: #5cb85c;
+$stage-latest-color: #7952b3;
+
+.block-stage-kih {
+  background-color: $stage-kih-color;
+  color: inherit;
+  width: 100%;
+}
+
+.block-stage-tat {
+  background-color: $stage-tat-color;
+  color: #fff;
+  width: 100%;
+}
+
+.block-stage-hon {
+  background-color: $stage-hon-color;
+  color: #fff;
+  width: 100%;
+}
+
+.block-stage-you {
+  background-color: $stage-you-color;
+  color: #fff;
+  width: 100%;
+}
+
+.block-stage-con {
+  background-color: $stage-con-color;
+  color: #fff;
+  width: 100%;
+}
+
+.block-stage-latest {
+  background-color: $stage-latest-color;
+  color: #fff;
+  width: 100%;
+}
+
+.float-center {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+
+.rtt-drawer-menu {
+  form {
+    label {
+      margin-bottom: 0;
+    }
+
+    .radio,
+    .checkbox {
+      padding-top: 0;
+      min-height: 0;
+    }
+
+    .radio label,
+    .checkbox label {
+      width: 100%;
+    }
+
+    .form-group {
+      margin-bottom: 5px;
+    }
+
+    .select-label {
+      line-height: 30px;
+      vertical-align: bottom;
+      text-align: right;
+    }
+  }
+}
+
+.comment {
+  display: none;
+}
+
+/* ---------------------------------------------- /*
+ * 共通設定
+/* ---------------------------------------------- */
+
+body.with-fixed-nav {
+  padding-top: 55px;
+}
+
+.contents-main {
+  overflow: hidden;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.form-group.required label:after {
+  content: "*";
+  color: red;
+}
+
+.dev {
+  color: #0000ff !important;
+}
+
+.linenumbered {
+  counter-reset: pre-line-conuter;
+}
+.linenumbered code:before {
+  counter-increment: pre-line-conuter 1;
+  content: counter(pre-line-conuter, decimal);
+  float: left;
+  clear: both;
+  min-width: 2.5em;
+  background-color: #ddd;
+}
+
+.md-manual {
+  h2 {
+    margin: 1em 0 0.5em;
+    padding: 0.3em 0;
+    border-bottom: 1px solid #eaecef;
+  }
+
+  pre {
+    padding: 16px;
+    color: #24292e;
+    background-color: #f6f8fa;
+  }
+}
+
+// 5%刻みで w-0 から w-100 を使えるようにする
+@for $i from 0 through 20 {
+  .w-#{$i * 5} {
+    width: $i * 5% !important;
+  }
+}
+
+/* ---------------------------------------------- /*
+ * header
+/* ---------------------------------------------- */
+
+nav.navbar {
+  border-bottom: 5px solid #517480;
+}
+nav.navbar.dev {
+  border-bottom: 5px solid #0000ff;
+}
+.logo {
+  display: block;
+  height: 50px;
+  background-color: #ffffff;
+}
+.logo img {
+  width: auto;
+  height: 100%;
+}
+
+/* ---------------------------------------------- /*
+ * aside
+/* ---------------------------------------------- */
+
+.aside {
+  /* .aside と .main の高さを揃える */
+  padding-bottom: 32767px;
+  margin-bottom: -32767px;
+
+  padding-top: 10px;
+  border-right: 1px solid #cccccc;
+}
+
+.drawer-hamburger {
+  top: 50px;
+}
+.drawer-nav {
+  top: 50px;
+}
+.drawer-menu {
+  padding-bottom: 77px;
+}
+
+/* ---------------------------------------------- /*
+ * main
+/* ---------------------------------------------- */
+
+.main {
+  /* .aside と .main の高さを揃える */
+  padding-bottom: 32767px;
+  margin-bottom: -32767px;
+
+  padding-top: 10px;
+}
+
+/* ---------------------------------------------- /*
+ * user
+/* ---------------------------------------------- */
+
+.user-company-field legend {
+  margin: 0;
+  border-bottom: none;
+}
+
+/* ---------------------------------------------- /*
+ * genba
+/* ---------------------------------------------- */
+
+/* ---------------------------------------------- /*
+ * rttweb#files
+/* ---------------------------------------------- */
+
+.status .status-diff td {
+  border-bottom: 1px solid #ddd;
+}
+
+#files-form .drop-box {
+  background: #f8f8f8;
+  border: 5px dashed #dddddd;
+  text-align: center;
+  padding: 25px 10px;
+  margin: 10px;
+}
+#files-form .drop-box.dragover {
+  border: 5px dashed #428bca;
+}
+#files-form .drop-box.dragover-err {
+  border: 5px dashed #d9534f;
+}
+
+.files-table {
+  height: 100%;
+}
+.diff {
+  padding: 0 !important;
+  height: 100%;
+}
+.diff-in {
+  box-sizing: content-box;
+  padding: 5px;
+  height: 100%;
+  min-height: 100%;
+}
+.diff .count {
+  font-size: 24px;
+}
+.diff .icon {
+  margin-bottom: 3px;
+  font-size: 20px;
+  line-height: 1em;
+}
+.diff .text {
+  font-size: 16px;
+  line-height: 1em;
+}
+.file .master {
+  margin-bottom: 3px;
+  line-height: 1em;
+}
+.file .name {
+  font-size: 16px;
+}
+.file .detail {
+  line-height: 1em;
+}
+.file .size,
+.file .updated_at {
+  font-size: 12px;
+  line-height: 1em;
+  color: gray;
+}
+
+/* ---------------------------------------------- /*
+ * footer
+/* ---------------------------------------------- */
+
+.footer-block {
+  width: 100%;
+}
+
+/* ---------------------------------------------- /*
+ * attendances
+/* ---------------------------------------------- */
+
+.bootstrap-date {
+  display: inline-block;
+  width: auto;
+}

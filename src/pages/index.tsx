@@ -1,38 +1,47 @@
 import Head from 'next/head'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import router, { Router } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
+import { Button, Alert } from 'react-bootstrap'
+import { NextPage } from 'next'
 
-export default function Home() {
+const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>POC</title>
+        <title>RTTWeb</title>
       </Head>
       <SessionComponent />
     </div>
   )
 }
 
-export function SessionComponent() {
+export const SessionComponent = () => {
+  const [showAlert, setShowAlert] = useState(true);
   const { data: session } = useSession()
   if (session) {
     return (
       <>
-        Signed in as {session?.user?.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
+        <h1>トップ画面（ログイン中）</h1>
+        ログインアカウント： {session?.user?.email} <br />
+        <Button onClick={() => signOut()}>Sign out</Button>{' '}
         <Link href='/users'>
-          <button>ユーザ一覧</button>
+          <Button>ユーザ一覧</Button>
         </Link>
       </>
     )
   }
   return (
     <>
-      Not signed in <br />
-      <button onClick={() => signIn(undefined, { callbackUrl: `${process.env.NEXT_PUBLIC_RTT_STAGING_URL} || 'http://localhost:3000'` })}>Sign in</button>
-      <button onClick={() => router.push('signup')}>アカウント登録</button>
+      {showAlert ?
+        <Alert variant='warning' onClose={() => setShowAlert(false)} dismissible>ログインもしくはアカウント登録してください。</Alert> : null
+      }
+      <h1>トップ画面（未ログイン）</h1>
+      <Button onClick={() => signIn(undefined, { callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}` })} id='login-button' > ログイン</Button>{' '}
+      <Button onClick={() => router.push('signup')} id='signup-button'>アカウント登録</Button>
     </>
   )
 }
+
+export default Home

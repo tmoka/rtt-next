@@ -13,12 +13,12 @@ export * from './types'
 
 // google analytics との通信用のクラスをweb版とelectron版で切り替える
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const Tracker: TrackerConstructor =
-  process.env.TARGET === 'web'
-    ? // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
-      require('./tracker.web').TrackerOnWeb
-    : // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
-      require('./tracker.renderer').TrackerOnElectron
+const Tracker: TrackerConstructor = require('./tracker.web').TrackerOnWeb
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
+//require('./tracker.web').TrackerOnWeb
+// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
+//require('./tracker.renderer').TrackerOnElectron
 
 /**
  * google analytics の tracking id

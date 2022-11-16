@@ -13,7 +13,7 @@ const Header = () => {
 
   return (
     <>
-      <Navbar bg='white' expand='lg'>
+      <Navbar bg='white' expand='lg' style={{ borderBottom: '5px solid #517480' }}>
         <Container>
           <Navbar.Brand href='/'>
             <Image
@@ -37,12 +37,12 @@ const Header = () => {
                 <>
                   <Nav.Link href='/'>RTTWeb</Nav.Link>
                   <NavDropdown title='サポート' id='basic-nav-dropdown'>
-                    <NavDropdown.Item href='#action/3.1'>更新履歴</NavDropdown.Item>
-                    <NavDropdown.Item href='#action/3.2'>ヘルプ</NavDropdown.Item>
+                    <NavDropdown.Item href='/releases'>更新履歴</NavDropdown.Item>
+                    <NavDropdown.Item href='/documents'>ヘルプ</NavDropdown.Item>
                   </NavDropdown>
                   <NavDropdown title='管理画面' id='basic-nav-dropdown'>
-                    <NavDropdown.Item href='#action/3.1'>ユーザリスト</NavDropdown.Item>
-                    <NavDropdown.Item href='#action/3.2'>現場リスト</NavDropdown.Item>
+                    <NavDropdown.Item href='/users'>ユーザリスト</NavDropdown.Item>
+                    <NavDropdown.Item href='/genbas'>現場リスト</NavDropdown.Item>
                   </NavDropdown>
 
                   <NavDropdown

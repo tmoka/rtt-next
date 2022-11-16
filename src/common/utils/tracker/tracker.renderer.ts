@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { remote } from 'electron'
+import remote from '@electron/remote'
 import * as universalAnalyticsModule from 'universal-analytics'
 import * as nodeMachineIdModule from 'node-machine-id'
 import { TrackerType } from './types'

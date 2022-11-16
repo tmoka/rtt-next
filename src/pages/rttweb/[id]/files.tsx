@@ -22,15 +22,32 @@ const Files: NextPage = () => {
     })
     try {
       await axios.post(`/api/genbas/${id}/files`, formData)
-    } catch (e) {
-      console.error(e)
+    } catch (err) {
+      console.error(err)
     }
   }, [])
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
-  const handleDelete = () => { }
+  const handleDeleteAll = () => {
+    axios
+      .delete(`/api/genbas/${id}/files`)
+      .then((res) => {
+        alert(JSON.stringify(res))
+      })
+      .catch((err) => console.error(err))
+  }
 
-  if (!files) return <Alert variant='warning'>データをロード中です</Alert>
+  if (!files) return (
+    <section className='container' id='files-form'>
+      <div {...getRootProps()} className='drop-box'>
+        <input {...getInputProps({ className: 'dropzone' })} />
+        {isDragActive ? (
+          <p>ファイル選択中</p>
+        ) : (
+          <p>ファイルをここにドラッグ&ドロップするとアップロード</p>
+        )}
+      </div>
+    </section>)
   if (error) return <Alert variant='danger'>エラーが発生しました</Alert>
 
   return (
@@ -40,11 +57,9 @@ const Files: NextPage = () => {
         {isDragActive ? (
           <p>ファイル選択中</p>
         ) : (
-          <p>ファイルをここにドラッグ&ドロップ<br />
-            もしくは下のボタンから選択</p>
+          <p>ファイルをここにドラッグ&ドロップするとアップロード</p>
         )}
       </div>
-      <Button variant='primary'>アップロード</Button>
 
       <Table>
         <thead>
@@ -61,10 +76,9 @@ const Files: NextPage = () => {
             <td></td>
             <td>
               <p>{files.length}個のファイル</p>
-              <Button variant='primary'>ダウンロード</Button>
             </td>
             <td>
-              <Button variant='danger'>全削除</Button>
+              <Button variant='danger' onClick={handleDeleteAll}>全削除</Button>
             </td>
           </tr>
           {
@@ -78,9 +92,6 @@ const Files: NextPage = () => {
                     <span style={{ fontSize: '13px' }}>{elem.stat.mtime} {elem.stat.size}B</span>
                   </td>
                   <td>
-                    <Button variant='danger' id={String(idx)}>
-                      削除
-                    </Button>
                   </td>
                 </tr>
               )

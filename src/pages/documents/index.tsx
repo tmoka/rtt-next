@@ -18,8 +18,6 @@ const Documents: NextPage = () => {
         <dl className='row'>
           <dt className='col-sm-3'><Link href='/documents/rttweb'>RTTWebヘルプ</Link></dt>
           <dd className='col-sm-9'>RTT web版のヘルプページ</dd>
-          <dt className='col-sm-3'><Link href='/documents/rttapp'>RTTAppヘルプ</Link></dt>
-          <dd className='col-sm-9'>RTT デスクトップ版のヘルプページ</dd>
         </dl>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { useRouter } from "next/router"
 import { useState } from "react"
 import { Tab, Tabs } from 'react-bootstrap'
 import RTTWebCSVDoc from '../../../components/RTTWebCSVDoc'
+import RTTWebOldDoc from "../../../components/RTTWebOldDoc"
 
 const RTTWebFileDocPage: NextPage = () => {
   const router = useRouter()
@@ -29,7 +30,7 @@ const RTTWebFileDocPage: NextPage = () => {
           <RTTWebCSVDoc />
         </Tab>
         <Tab eventKey="profile" title="従来版">
-
+          <RTTWebOldDoc />
         </Tab>
       </Tabs>
     </>

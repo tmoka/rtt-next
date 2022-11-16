@@ -352,7 +352,7 @@ const RTTWebCSVDoc = () => {
         </tbody>
       </Table>
 
-      <p>柱形状の記号と描画される形状の対応</p>
+      <h3>柱形状の記号と描画される形状の対応</h3>
       <Table>
         <thead>
           <tr>

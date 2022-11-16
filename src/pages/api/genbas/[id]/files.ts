@@ -41,6 +41,11 @@ const filesHandler = (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(200).send('')
     })
   }
+
+  if (req.method === 'DELETE') {
+    deleteAllFiles(String(id))
+    return res.json({})
+  }
 }
 
 const saveFile = async (file: any, genbaId: string) => {
@@ -50,9 +55,19 @@ const saveFile = async (file: any, genbaId: string) => {
     'genbas',
     padZero(Number(genbaId), UPLOAD_FOLDER_NAME_LENGTH),
   )
-  fs.existsSync(uploadPath) ? null : fs.mkdirSync(uploadPath)
-  fs.writeFileSync(uploadPath + `/${file.originalFilename}`, data)
+  fs.existsSync(`${uploadPath}/rttweb/original`) ? null : fs.mkdirSync(`${uploadPath}/rttweb/original`, { recursive: true })
+  fs.writeFileSync(`${uploadPath}/rttweb/original/${file.originalFilename}`, data)
   await fs.unlinkSync(file.filepath)
+  return
+}
+
+const deleteAllFiles = async (genbaId: string) => {
+  const dir = path.join(
+    'uploads',
+    'genbas',
+    padZero(Number(genbaId), UPLOAD_FOLDER_NAME_LENGTH),
+  )
+  fs.rm(dir, { recursive: true }, (err) => { console.error(err) })
   return
 }
 

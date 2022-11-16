@@ -1,91 +1,28 @@
-
-
-.rtt-drawer svg {
-  font-family: 'Noto Sans Japanese', sans-serif;
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-// rtt_drawer
-
-$stage-kih-color: #fff;
-$stage-tat-color: #d9534f;
-$stage-hon-color: #5bc0de;
-$stage-you-color: #337ab7;
-$stage-con-color: #5cb85c;
-$stage-latest-color: #7952b3;
-
-.block-stage-kih {
-  background-color: $stage-kih-color;
+a {
   color: inherit;
-  width: 100%;
+  text-decoration: none;
 }
 
-.block-stage-tat {
-  background-color: $stage-tat-color;
-  color: #fff;
-  width: 100%;
+* {
+  box-sizing: border-box;
 }
 
-.block-stage-hon {
-  background-color: $stage-hon-color;
-  color: #fff;
-  width: 100%;
-}
-
-.block-stage-you {
-  background-color: $stage-you-color;
-  color: #fff;
-  width: 100%;
-}
-
-.block-stage-con {
-  background-color: $stage-con-color;
-  color: #fff;
-  width: 100%;
-}
-
-.block-stage-latest {
-  background-color: $stage-latest-color;
-  color: #fff;
-  width: 100%;
-}
-
-.float-center {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-}
-
-.rtt-drawer-menu {
-  form {
-    label {
-      margin-bottom: 0;
-    }
-
-    .radio,
-    .checkbox {
-      padding-top: 0;
-      min-height: 0;
-    }
-
-    .radio label,
-    .checkbox label {
-      width: 100%;
-    }
-
-    .form-group {
-      margin-bottom: 5px;
-    }
-
-    .select-label {
-      line-height: 30px;
-      vertical-align: bottom;
-      text-align: right;
-    }
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
   }
-}
-
-.comment {
-  display: none;
+  body {
+    color: white;
+    background: black;
+  }
 }
 
 /* ---------------------------------------------- /*
@@ -172,8 +109,8 @@ nav.navbar.dev {
 
 .aside {
   /* .aside と .main の高さを揃える */
-  padding-bottom: 32767px;
-  margin-bottom: -32767px;
+  //padding-bottom: 32767px;
+  //margin-bottom: -32767px;
 
   padding-top: 10px;
   border-right: 1px solid #cccccc;

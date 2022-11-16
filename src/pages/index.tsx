@@ -23,7 +23,8 @@ export const SessionComponent = () => {
   if (session) {
     return (
       <>
-        Signed in as {session?.user?.email} <br />
+        <h1>トップ画面（ログイン中）</h1>
+        ログインアカウント： {session?.user?.email} <br />
         <Button onClick={() => signOut()}>Sign out</Button>{' '}
         <Link href='/users'>
           <Button>ユーザ一覧</Button>
@@ -36,8 +37,9 @@ export const SessionComponent = () => {
       {showAlert ?
         <Alert variant='warning' onClose={() => setShowAlert(false)} dismissible>ログインもしくはアカウント登録してください。</Alert> : null
       }
-      <Button onClick={() => signIn()}>ログイン</Button>{' '}
-      <Button onClick={() => router.push('signup')}>アカウント登録</Button>
+      <h1>トップ画面（未ログイン）</h1>
+      <Button onClick={() => signIn()} id='login-button'>ログイン</Button>{' '}
+      <Button onClick={() => router.push('signup')} id='signup-button'>アカウント登録</Button>
     </>
   )
 }

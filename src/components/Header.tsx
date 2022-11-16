@@ -37,7 +37,7 @@ const Header = () => {
                 <>
                   <Nav.Link href='/'>RTTWeb</Nav.Link>
                   <NavDropdown title='サポート' id='basic-nav-dropdown'>
-                    <NavDropdown.Item href='#action/3.1'>更新履歴</NavDropdown.Item>
+                    <NavDropdown.Item href='/releases'>更新履歴</NavDropdown.Item>
                     <NavDropdown.Item href='#action/3.2'>ヘルプ</NavDropdown.Item>
                   </NavDropdown>
                   <NavDropdown title='管理画面' id='basic-nav-dropdown'>

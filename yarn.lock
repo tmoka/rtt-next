@@ -851,10 +851,10 @@
   resolved "https://registry.npmjs.org/@prisma/engines-version/-/engines-version-4.3.0-32.c875e43600dfe042452e0b868f7a48b817b9640b.tgz"
   integrity sha512-8yWpXkQRmiSfsi2Wb/ZS5D3RFbeu/btL9Pm/gdF4phB0Lo5KGsDFMxFMgaD64mwED2nHc8ZaEJg/+4Jymb9Znw==
 
-"@prisma/engines@4.3.1":
-  version "4.3.1"
-  resolved "https://registry.npmjs.org/@prisma/engines/-/engines-4.3.1.tgz"
-  integrity sha512-4JF/uMaEDAPdcdZNOrnzE3BvrbGpjgV0FcPT3EVoi6I86fWkloqqxBt+KcK/+fIRR0Pxj66uGR9wVH8U1Y13JA==
+"@prisma/engines@4.6.1":
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-4.6.1.tgz#ae31309cc0f600f2da22708697b3be4eb1e46f9e"
+  integrity sha512-3u2/XxvxB+Q7cMXHnKU0CpBiUK1QWqpgiBv28YDo1zOIJE3FCF8DI2vrp6vuwjGt5h0JGXDSvmSf4D4maVjJdw==
 
 "@prisma/generator-helper@^4.3.1":
   version "4.3.1"
@@ -4766,12 +4766,12 @@ prisma-erd-generator@^1.2.0:
     "@prisma/generator-helper" "^4.3.1"
     dotenv "^16.0.2"
 
-prisma@^4.3.1:
-  version "4.3.1"
-  resolved "https://registry.npmjs.org/prisma/-/prisma-4.3.1.tgz"
-  integrity sha512-90xo06wtqil76Xsi3mNpc4Js3SdDRR5g4qb9h+4VWY4Y8iImJY6xc3PX+C9xxTSt1lr0Q89A0MLkJjd8ax6KiQ==
+prisma@^4.5.0:
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/prisma/-/prisma-4.6.1.tgz#6c85fb667abed006a6b849c9c1ddd81d3f071b87"
+  integrity sha512-BR4itMCuzrDV4tn3e2TF+nh1zIX/RVU0isKtKoN28ADeoJ9nYaMhiuRRkFd2TZN8+l/XfYzoRKyHzUFXLQhmBQ==
   dependencies:
-    "@prisma/engines" "4.3.1"
+    "@prisma/engines" "4.6.1"
 
 process-nextick-args@~2.0.0:
   version "2.0.1"

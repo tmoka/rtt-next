@@ -28,7 +28,7 @@
     "lodash": "^4.17.21",
     "memoize-one": "^6.0.0",
     "natural-orderby": "^2.0.3",
-    "next": "12.2.5",
+    "next": "13.5.0",
     "next-auth": "^4.10.3",
     "node-machine-id": "^1.1.12",
     "papaparse": "^5.3.2",

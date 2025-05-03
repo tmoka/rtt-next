@@ -19,7 +19,7 @@
     "bootstrap": "^5.2.1",
     "date-fns": "^2.29.3",
     "file-saver": "^2.0.5",
-    "formidable": "3.2.4",
+    "formidable": "3.5.4",
     "fp-ts": "^2.12.3",
     "fs": "^0.0.1-security",
     "humps": "^2.0.1",
